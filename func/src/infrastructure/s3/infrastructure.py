@@ -1,12 +1,11 @@
 # OUTSIDE LIBRARIES
 import aioboto3
 from contextlib import asynccontextmanager
-
-from decouple import config
 from etria_logger import Gladsheim
 
 # Sphinx
 from func.src.domain.exceptions.exceptions import InternalServerError
+from func.src.infrastructure.env_config import config
 
 
 class S3Infrastructure:
