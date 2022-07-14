@@ -1,6 +1,13 @@
+from decouple import config
+
+from func.src.domain.enums.persephone_queue.enum import PersephoneQueue
+from func.src.domain.exceptions.exceptions import InternalServerError
+from func.src.domain.models.persephone.model import Templates
+from func.src.repositories.user.repository import UserRepository
 from func.src.transport.onboarding_steps_br import ValidateOnboardingStepsBR
 from func.src.transport.onboarding_steps_us import ValidateOnboardingStepsUS
 import asyncio
+from persephone_client import Persephone
 
 
 class UpdateMarketTimeExperience:
@@ -15,9 +22,9 @@ class UpdateMarketTimeExperience:
     async def update_market_time_experience(cls, jwt_data: dict, thebes_answer: str):
         unique_id, time_experience = cls.__extract_unique_id(jwt_data=jwt_data)
 
-        br_step_validator = ValidateOnboardingStepsUS.onboarding_us_step_validator(thebes_answer=thebes_answer)
+        br_step_validator = ValidateOnboardingStepsBR.onboarding_br_step_validator(thebes_answer=thebes_answer)
 
-        us_step_validator = ValidateOnboardingStepsBR.onboarding_us_step_validator(thebes_answer=thebes_answer)
+        us_step_validator = ValidateOnboardingStepsUS.onboarding_us_step_validator(thebes_answer=thebes_answer)
 
         await asyncio.gather(br_step_validator, us_step_validator)
 
@@ -27,7 +34,7 @@ class UpdateMarketTimeExperience:
         ) = await Persephone.send_to_persephone(
             topic=config("PERSEPHONE_TOPIC_USER"),
             partition=PersephoneQueue.USER_TRADE_TIME_EXPERIENCE_IN_US.value,
-            message=get_user_time_experience_schema_template_with_data(
+            message=Templates.get_user_time_experience_schema_template_with_data(
                 time_experience=time_experience,
                 unique_id=unique_id,
             ),

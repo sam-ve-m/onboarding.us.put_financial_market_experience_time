@@ -3,8 +3,8 @@ from typing import Union
 import pickle
 
 # PROJECT IMPORT
-from src.domain.exceptions.exceptions import InternalServerError
-from src.infrastructure.redis.infrastructure import RedisInfrastructure
+from func.src.domain.exceptions.exceptions import InternalServerError
+from func.src.infrastructure.redis.infrastructure import RedisInfrastructure
 
 
 class BaseRepositoryRedis(RedisInfrastructure):
