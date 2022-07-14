@@ -4,9 +4,11 @@ from flask import request, Response, Request, Flask
 
 # THIRD PARTY IMPORTS
 from etria_logger import Gladsheim
-
+from func.src.domain.enums.status_code.enum import InternalCode
+from func.src.domain.models.time_experience.model import TimeExperienceModel
+from func.src.domain.response.model import ResponseModel
 from func.src.services.jwt_service.service import JWTService
-from func.src.transport.onboarding_steps_us import ValidateOnboardingStepsUS
+from func.src.services.update_time_experience.service import UpdateMarketTimeExperience
 
 app = Flask(__name__)
 
@@ -16,12 +18,30 @@ async def update_market_experience_time(
         request_body: Request = request) -> Response:
     thebes_answer = request_body.headers.get("x-thebes-answer")
     jwt_data = await JWTService.decode_jwt_from_request(jwt_data=thebes_answer)
-    w8_confirmation_param = W8FormConfirmation(**request_body.json).dict()
+    time_experience = TimeExperienceModel(**request_body.json).dict()
 
-    payload = {"x-thebes-answer": thebes_answer}
-    payload.update(w8_confirmation_param)
-    # service_response
+    try:
+        payload = {"x-thebes-answer": jwt_data}
+        payload.update(time_experience)
+        service_response = await UpdateMarketTimeExperience.update_market_time_experience(
+            thebes_answer=thebes_answer, jwt_data=payload
+        )
+        response = ResponseModel(
+            success=True,
+            code=InternalCode.SUCCESS,
+            message="The Time Experience of Financial Market Was Updated Successfully",
+            result=service_response
+        ).build_http_response(status=HTTPStatus.OK)
+        return response
 
+    except Exception as ex:
+        Gladsheim.error(error=ex)
+        response = ResponseModel(
+            success=False,
+            code=InternalCode.INTERNAL_SERVER_ERROR,
+            message="Unexpected error occurred"
+        ).build_http_response(status=HTTPStatus.INTERNAL_SERVER_ERROR)
+        return response
 
 if __name__ == "__main__":
     app.run(debug=True)

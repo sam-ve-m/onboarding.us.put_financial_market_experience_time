@@ -2,5 +2,5 @@
 from pydantic import BaseModel
 
 
-class TimeExperience(BaseModel):
-    time_experience: bool
+class TimeExperienceModel(BaseModel):
+    time_experience: int
