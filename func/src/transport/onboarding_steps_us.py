@@ -1,6 +1,6 @@
 import requests
 
-from func.src.domain.exceptions.exceptions import BadRequestError
+from func.src.domain.exceptions.exceptions import BadRequestError, InvalidUsOnboardingStep
 
 result = {'result': {'terms': True,
                      'user_document_validator': True,
@@ -33,4 +33,4 @@ class ValidateOnboardingStepsUS:
         time_experience = response.get("result").get("time_experience")
 
         if not time_experience:
-            raise BadRequestError("ValidateOnboardingStepsUS.onboarding_us_step_validator::you're not in this step")
+            raise InvalidUsOnboardingStep

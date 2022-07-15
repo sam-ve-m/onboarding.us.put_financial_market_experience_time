@@ -1,5 +1,5 @@
 from func.src.domain.enums.persephone_queue.enum import PersephoneQueue
-from func.src.domain.exceptions.exceptions import InternalServerError
+from func.src.domain.exceptions.exceptions import InternalServerError, NotSentToPersephone, UniqueIdWasNotUpdate
 from func.src.domain.models.persephone.model import Templates
 from func.src.infrastructure.env_config import config
 from func.src.repositories.user.repository import UserRepository
@@ -41,7 +41,7 @@ class UpdateMarketTimeExperience:
             schema_name="user_time_experience_us_schema",
         )
         if sent_to_persephone is False:
-            raise InternalServerError("common.process_issue")
+            raise NotSentToPersephone
 
         was_updated = await UserRepository.update_one(
             old={"unique_id": unique_id},
@@ -50,7 +50,7 @@ class UpdateMarketTimeExperience:
             },
         )
         if not was_updated:
-            raise InternalServerError("common.unable_to_process")
+            raise UniqueIdWasNotUpdate
 
         user_data = await UserRepository.find_one({"unique_id": unique_id})
         await DriveWealthService.registry_update_client(user_data=user_data)

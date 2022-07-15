@@ -1,6 +1,6 @@
 import requests
 
-from func.src.domain.exceptions.exceptions import BadRequestError
+from func.src.domain.exceptions.exceptions import InvalidBrOnboardingStep
 
 result = {'result': {'suitability': True,
                      'identifier_data': True,
@@ -28,7 +28,7 @@ class ValidateOnboardingStepsBR:
     @classmethod
     async def onboarding_br_step_validator(cls, thebes_answer: str):
         response = cls.__get_onboarding_steps_br(thebes_answer=thebes_answer)
-        time_experience = response.get("result").get("time_experience")
+        time_experience = response.get("time_experience")
 
         if not time_experience:
-            raise BadRequestError("ValidateOnboardingStepsBR.onboarding_br_step_validator::you're not in this step")
+            raise InvalidBrOnboardingStep

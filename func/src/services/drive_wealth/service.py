@@ -5,7 +5,7 @@ from func.src.domain.enums.drive_wealth.file_type.enum import DriveWealthFileTyp
 from func.src.domain.enums.file.user_file.enum import UserFileType
 from func.src.domain.enums.kyc_status.enum import KycStatus
 from func.src.domain.enums.sinacor.enum import SinacorIdentifierDocumentTypes
-from func.src.domain.exceptions.exceptions import InternalServerError
+from func.src.domain.exceptions.exceptions import InternalServerError, ClientDataWasNotUpdatedDriveWealth
 from func.src.infrastructure.env_config import config
 from func.src.repositories.file.repository import FileRepository
 from func.src.repositories.portfolio.repository import PortfolioRepository
@@ -43,7 +43,7 @@ class DriveWealthService:
                 old={"unique_id": user_data["unique_id"]}, new=update_user
             )
             if was_updated is False:
-                raise InternalServerError("common.process_issue")
+                raise ClientDataWasNotUpdatedDriveWealth
 
             await cls._send_user_document(user_data=user_data, user_dw_id=user_dw_id)
 
@@ -67,36 +67,7 @@ class DriveWealthService:
                 old={"unique_id": user_data["unique_id"]}, new=update_user
             )
             if was_updated is False:
-                raise InternalServerError("common.process_issue")
-
-    @classmethod
-    async def validate_kyc_status(cls, user_dw_id: str) -> str:
-        status, response = await DWTransport.call_kyc_status_get(
-            user_id=user_dw_id
-        )
-        if not status:
-            raise InternalServerError("common.unable_to_process")
-        kyc_status = response["kyc"]["status"]["name"]
-        return kyc_status
-
-    @classmethod
-    async def get_w8_pdf(cls, user_dw_id: str) -> str:
-        status, response = await DWTransport.call_list_all_physical_get(
-            user_id=user_dw_id
-        )
-        if not status:
-            raise InternalServerError("common.unable_to_process")
-        w8_file = list(filter(lambda x: x["type"]["name"] == "TAX", response))
-        if not w8_file:
-            raise InternalServerError("common.unable_to_process")
-        w8_file_id = w8_file[0]["documentID"]
-        status, response = await DWTransport.call_get_physical_get(
-            doc_id=w8_file_id
-        )
-        if not status:
-            raise InternalServerError("common.unable_to_process")
-        w8_file_link = response["url"]
-        return w8_file_link
+                raise ClientDataWasNotUpdatedDriveWealth
 
     @classmethod
     async def _create_user_account(cls, user_dw_id: str):
