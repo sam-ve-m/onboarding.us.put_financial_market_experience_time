@@ -1,13 +1,13 @@
-from func.src.domain.enums.persephone_queue.enum import PersephoneQueue
-from func.src.domain.exceptions.exceptions import InternalServerError, NotSentToPersephone, UniqueIdWasNotUpdate
-from func.src.domain.models.persephone.model import Templates
-from func.src.infrastructure.env_config import config
+# STANDARD IMPORTS
+import asyncio
+
+# PROJECT IMPORTS
+from func.src.domain.exceptions.exceptions import UniqueIdWasNotUpdate
 from func.src.repositories.user.repository import UserRepository
 from func.src.services.drive_wealth.service import DriveWealthService
+from func.src.services.persephone.service import SendToPersephone
 from func.src.transport.onboarding_steps_br import ValidateOnboardingStepsBR
 from func.src.transport.onboarding_steps_us import ValidateOnboardingStepsUS
-import asyncio
-from persephone_client import Persephone
 
 
 class UpdateMarketTimeExperience:
@@ -28,20 +28,9 @@ class UpdateMarketTimeExperience:
 
         await asyncio.gather(br_step_validator, us_step_validator)
 
-        (
-            sent_to_persephone,
-            status_sent_to_persephone,
-        ) = await Persephone.send_to_persephone(
-            topic=config("PERSEPHONE_TOPIC_USER"),
-            partition=PersephoneQueue.USER_TRADE_TIME_EXPERIENCE_IN_US.value,
-            message=Templates.get_user_time_experience_schema_template_with_data(
-                time_experience=time_experience,
-                unique_id=unique_id,
-            ),
-            schema_name="user_time_experience_us_schema",
+        await SendToPersephone.register_user_time_experience_log(
+            unique_id=unique_id, time_experience=time_experience
         )
-        if sent_to_persephone is False:
-            raise NotSentToPersephone
 
         was_updated = await UserRepository.update_one(
             old={"unique_id": unique_id},

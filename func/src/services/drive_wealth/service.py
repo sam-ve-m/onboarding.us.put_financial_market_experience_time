@@ -1,4 +1,8 @@
+# STANDARD IMPORTS
 import asyncio
+import datetime
+
+# PROJECT IMPORTS
 from func.src.domain.enums.drive_wealth.account.enum import DriveWealthAccountType, DriveWealthAccountTradingType, \
     DriveWealthAccountManagementType
 from func.src.domain.enums.drive_wealth.file_type.enum import DriveWealthFileType, DriveWealthFileSide
@@ -11,7 +15,6 @@ from func.src.repositories.file.repository import FileRepository
 from func.src.repositories.portfolio.repository import PortfolioRepository
 from func.src.repositories.sinacor_types.repository import SinacorTypesRepository
 from func.src.repositories.user.repository import UserRepository
-import datetime
 from func.src.services.builders.client_register.us.builder import ClientUpdateRegisterBuilderUs
 from func.src.services.valhalla.service import ValhallaService
 from func.src.transport.drive_wealth.transport import DWTransport
@@ -85,7 +88,7 @@ class DriveWealthService:
         return user_id, user_id_number
 
     @classmethod
-    async def _send_user_document(cls, user_data: dict, user_dw_id: str) -> str:
+    async def _send_user_document(cls, user_data: dict, user_dw_id: str):
         sinacor_dw_document_map = {
             SinacorIdentifierDocumentTypes.RG.value: DriveWealthFileType.NATIONAL_ID_CARD,
             SinacorIdentifierDocumentTypes.CH.value: DriveWealthFileType.DRIVER_LICENSE,
@@ -142,7 +145,7 @@ class DriveWealthService:
         return user_id
 
     @classmethod
-    async def _update_user_and_get_id(cls, user_data: dict, user_dw_id: str) -> str:
+    async def _update_user_and_get_id(cls, user_data: dict, user_dw_id: str):
         builder = cls.__get_update_body(user_data=user_data)
         registry_body = builder.build()
         status, response = await DWTransport.call_registry_user_patch(
