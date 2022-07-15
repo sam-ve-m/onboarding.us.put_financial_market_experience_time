@@ -1,9 +1,9 @@
-from decouple import config
-
 from func.src.domain.enums.persephone_queue.enum import PersephoneQueue
 from func.src.domain.exceptions.exceptions import InternalServerError
 from func.src.domain.models.persephone.model import Templates
+from func.src.infrastructure.env_config import config
 from func.src.repositories.user.repository import UserRepository
+from func.src.services.drive_wealth.service import DriveWealthService
 from func.src.transport.onboarding_steps_br import ValidateOnboardingStepsBR
 from func.src.transport.onboarding_steps_us import ValidateOnboardingStepsUS
 import asyncio
