@@ -1,11 +1,9 @@
 # Standards
-from datetime import datetime
-from typing import List, Tuple
+from typing import Tuple
 import json
-from nidavellir import Sindri
 
 # Third part
-from aiohttp import ClientSession, ClientResponse
+from aiohttp import ClientResponse
 
 # Jotunheimr
 from mepho import DWApiTransport

@@ -12,7 +12,6 @@ from func.src.repositories.portfolio.repository import PortfolioRepository
 from func.src.repositories.sinacor_types.repository import SinacorTypesRepository
 from func.src.repositories.user.repository import UserRepository
 import datetime
-
 from func.src.services.builders.client_register.us.builder import ClientUpdateRegisterBuilderUs
 from func.src.services.valhalla.service import ValhallaService
 from func.src.transport.drive_wealth.transport import DWTransport
