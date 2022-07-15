@@ -2,15 +2,15 @@ import requests
 
 from func.src.domain.exceptions.exceptions import InvalidBrOnboardingStep
 
-result = {'result': {'suitability': True,
+result = {'suitability': True,
                      'identifier_data': True,
                      'selfie': True,
                      'complementary_data': True,
                      'document_validator': True,
                      'data_validation': True,
                      'electronic_signature': True,
-                     'current_step': 'finished'},
-          'message': 'Success', 'success': True, 'code': 0}
+                     'time_experience': True,
+                     'current_step': 'finished'}
 
 
 class ValidateOnboardingStepsBR:
@@ -28,7 +28,7 @@ class ValidateOnboardingStepsBR:
     @classmethod
     async def onboarding_br_step_validator(cls, thebes_answer: str):
         response = cls.__get_onboarding_steps_br(thebes_answer=thebes_answer)
-        time_experience = response.get("time_experience")
+        time_experience = result.get("time_experience")
 
         if not time_experience:
             raise InvalidBrOnboardingStep

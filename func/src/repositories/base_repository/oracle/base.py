@@ -1,11 +1,11 @@
-# OUTSIDE LIBRARIES
+# STANDARD IMPORTS
 from typing import List
 
-# OUTSIDE LIBRARIES
+# THIRD PARTY IMPORTS
 from etria_logger import Gladsheim
 import cx_Oracle
 
-# SPHINX
+# PROJECT IMPORTS
 from func.src.domain.exceptions.exceptions import InternalServerError
 from func.src.infrastructure.oracle.infrastructure import OracleInfrastructure
 

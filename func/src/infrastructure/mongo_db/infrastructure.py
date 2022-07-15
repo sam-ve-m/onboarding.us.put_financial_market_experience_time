@@ -1,4 +1,4 @@
-# OUTSIDE LIBRARIES
+# THIRD PARTY IMPORTS
 from motor.motor_asyncio import AsyncIOMotorClient
 
 from func.src.infrastructure.env_config import config

@@ -30,7 +30,7 @@ class ValidateOnboardingStepsUS:
     @classmethod
     async def onboarding_us_step_validator(cls, thebes_answer: str):
         response = cls.__get_onboarding_steps_us(thebes_answer=thebes_answer)
-        time_experience = response.get("result").get("time_experience")
+        time_experience = response.get("time_experience")
 
         if not time_experience:
             raise InvalidUsOnboardingStep

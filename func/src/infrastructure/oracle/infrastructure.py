@@ -1,10 +1,8 @@
-# OUTSIDE LIBRARIES
+# THIRD PARTY IMPORTS
 from contextlib import asynccontextmanager
-
-# OUTSIDE LIBRARIES
 import cx_Oracle_async
 
-# SPHINX
+# PROJECT IMPORTS
 from func.src.infrastructure.env_config import config
 
 

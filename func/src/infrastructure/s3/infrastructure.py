@@ -1,9 +1,9 @@
-# OUTSIDE LIBRARIES
+# THIRD PARTY IMPORTS
 import aioboto3
 from contextlib import asynccontextmanager
 from etria_logger import Gladsheim
 
-# Sphinx
+# PROJECT IMPORTS
 from func.src.domain.exceptions.exceptions import InternalServerError
 from func.src.infrastructure.env_config import config
 

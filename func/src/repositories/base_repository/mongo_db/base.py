@@ -1,12 +1,12 @@
-# STANDARD LIBS
+# STANDARD IMPORTS
 from typing import Optional
 from etria_logger import Gladsheim
 from datetime import datetime
 
-# OUTSIDE LIBRARIES
+# THIRD PARTY IMPORTS
 from nidavellir import Sindri
 
-# Sphinx
+# PROJECT IMPORTS
 from func.src.domain.models.generate_id.generate_id import hash_field
 from func.src.infrastructure.mongo_db.infrastructure import MongoDBInfrastructure
 from func.src.repositories.cache.repository import RepositoryRedis

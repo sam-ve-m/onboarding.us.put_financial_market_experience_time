@@ -1,5 +1,7 @@
+# STANDARD IMPORTS
 from typing import List
 
+# PROJECT IMPORTS
 from func.src.domain.enums.file.terms_file.enum import TermsFileType
 from func.src.infrastructure.env_config import config
 
