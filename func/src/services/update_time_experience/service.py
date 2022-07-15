@@ -56,6 +56,5 @@ class UpdateMarketTimeExperience:
         await DriveWealthService.registry_update_client(user_data=user_data)
 
         return {
-            "status_code": status.HTTP_200_OK,
             "message_key": "requests.updated",
         }

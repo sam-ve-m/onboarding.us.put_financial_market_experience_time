@@ -1,5 +1,4 @@
 import asyncio
-
 from func.src.domain.enums.drive_wealth.account.enum import DriveWealthAccountType, DriveWealthAccountTradingType, \
     DriveWealthAccountManagementType
 from func.src.domain.enums.drive_wealth.file_type.enum import DriveWealthFileType, DriveWealthFileSide
@@ -10,9 +9,11 @@ from func.src.domain.exceptions.exceptions import InternalServerError
 from func.src.infrastructure.env_config import config
 from func.src.repositories.file.repository import FileRepository
 from func.src.repositories.portfolio.repository import PortfolioRepository
+from func.src.repositories.sinacor_types.repository import SinacorTypesRepository
 from func.src.repositories.user.repository import UserRepository
 import datetime
 
+from func.src.services.builders.client_register.us.builder import ClientUpdateRegisterBuilderUs
 from func.src.services.valhalla.service import ValhallaService
 from func.src.transport.drive_wealth.transport import DWTransport
 

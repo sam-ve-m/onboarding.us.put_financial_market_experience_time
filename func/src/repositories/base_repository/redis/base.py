@@ -28,3 +28,13 @@ class BaseRepositoryRedis(RedisInfrastructure):
             await redis.set(name=key, value=pickle.dumps(value), ex=ttl)
         else:
             await redis.set(name=key, value=pickle.dumps(value))
+
+    @classmethod
+    async def set_without_pickle(cls, key: str, value, ttl: int = 0) -> None:
+        redis = cls.get_redis()
+        """ttl in secounds"""
+        key = f"{cls.prefix}{key}"
+        if ttl > 0:
+            await redis.set(name=key, value=str(value), ex=ttl)
+        else:
+            await redis.set(name=key, value=str(value))
