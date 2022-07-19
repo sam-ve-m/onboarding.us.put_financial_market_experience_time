@@ -134,7 +134,7 @@ class DriveWealthService:
 
     @classmethod
     async def _save_user_and_get_id(cls, user_data: dict) -> str:
-        builder = cls.__get_registry_body(user_data=user_data)
+        builder = await cls.__get_registry_body(user_data=user_data)
         registry_body = builder.build()
         status, response = await DWTransport.call_registry_user_post(
             user_register_data=registry_body
@@ -146,7 +146,7 @@ class DriveWealthService:
 
     @classmethod
     async def _update_user_and_get_id(cls, user_data: dict, user_dw_id: str):
-        builder = cls.__get_update_body(user_data=user_data)
+        builder = await cls.__get_update_body(user_data=user_data)
         registry_body = builder.build()
         status, response = await DWTransport.call_registry_user_patch(
             user_register_data=registry_body, user_dw_id=user_dw_id
@@ -155,8 +155,8 @@ class DriveWealthService:
             raise InternalServerError("common.unable_to_process")
 
     @staticmethod
-    def __get_registry_body(user_data: dict) -> ClientUpdateRegisterBuilderUs:
-        city_name = SinacorTypesRepository.get_county_name_by_id(
+    async def __get_registry_body(user_data: dict) -> ClientUpdateRegisterBuilderUs:
+        city_name = await SinacorTypesRepository.get_county_name_by_id(
             id=user_data["address"]["city"]
         )
         client_register_builder_us = ClientUpdateRegisterBuilderUs()
@@ -208,8 +208,8 @@ class DriveWealthService:
         return client_register_builder_us
 
     @staticmethod
-    def __get_update_body(user_data: dict) -> ClientUpdateRegisterBuilderUs:
-        city_name = SinacorTypesRepository.get_county_name_by_id(
+    async def __get_update_body(user_data: dict) -> ClientUpdateRegisterBuilderUs:
+        city_name = await SinacorTypesRepository.get_county_name_by_id(
             id=user_data["address"]["city"]
         )
         client_update_builder_us = ClientUpdateRegisterBuilderUs()

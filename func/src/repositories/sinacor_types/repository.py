@@ -16,10 +16,7 @@ class SinacorTypesRepository(OracleBaseRepository):
             FROM CORRWIN.TSCDXMUNICIPIO
             WHERE NUM_SEQ_MUNI = {id}
         """
-        current_event_loop = asyncio.get_running_loop()
-        task = current_event_loop.create_task(cls.query_with_cache(sql=sql))
-        tuple_result = current_event_loop.run_until_complete(task)
-        current_event_loop.close()
+        tuple_result = await cls.query_with_cache(sql=sql)
         if tuple_result:
             return tuple_result[0][0]
 
