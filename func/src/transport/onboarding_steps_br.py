@@ -1,6 +1,14 @@
+# STANDARD IMPORTS
+from http import HTTPStatus
 import requests
 
+# THIRD PARTY IMPORTS
+from etria_logger import Gladsheim
+
+# PROJECT IMPORTS
+from func.src.domain.enums.status_code.enum import InternalCode
 from func.src.domain.exceptions.exceptions import InvalidBrOnboardingStep
+from func.src.domain.response.model import ResponseModel
 
 result = {'suitability': True,
                      'identifier_data': True,
@@ -17,7 +25,7 @@ class ValidateOnboardingStepsBR:
     BASE_URL = 'https://dev.api.siga.me/router/onboarding_steps_br'
 
     @classmethod
-    def __get_onboarding_steps_br(cls, thebes_answer: str):
+    def get_onboarding_steps_br(cls, thebes_answer: str):
         headers = {'x-thebes-answer': "{}".format(thebes_answer)}
         steps_us_response = requests.get(cls.BASE_URL, headers=headers)
 
@@ -27,8 +35,19 @@ class ValidateOnboardingStepsBR:
 
     @classmethod
     async def onboarding_br_step_validator(cls, thebes_answer: str):
-        response = cls.__get_onboarding_steps_br(thebes_answer=thebes_answer)
-        time_experience = result.get("time_experience")
+        try:
+            # response = cls.get_onboarding_steps_br(thebes_answer=thebes_answer)
+            time_experience = result.get("time_experience")
 
-        if not time_experience:
-            raise InvalidBrOnboardingStep
+            if not time_experience:
+                raise InvalidBrOnboardingStep
+
+        except Exception as error:
+            Gladsheim.error(error=error)
+            response = ResponseModel(
+                result=False,
+                success=False,
+                code=InternalCode.HTTP_CONNECTION_POLL,
+                message="Error On HTTP Request"
+            ).build_http_response(status=HTTPStatus.INTERNAL_SERVER_ERROR)
+            return response

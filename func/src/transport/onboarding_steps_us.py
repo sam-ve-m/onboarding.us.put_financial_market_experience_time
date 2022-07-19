@@ -1,21 +1,27 @@
+# STANDARD IMPORTS
+from http import HTTPStatus
 import requests
 
-from func.src.domain.exceptions.exceptions import BadRequestError, InvalidUsOnboardingStep
+# THIRD PARTY IMPORTS
+from etria_logger import Gladsheim
 
-result = {'result': {'terms': True,
-                     'user_document_validator': True,
-                     'politically_exposed': True,
-                     'exchange_member': True,
-                     'company_director': True,
-                     'external_fiscal_tax_confirmation': True,
-                     'employ': True,
-                     'time_experience': True,
-                     'current_step': 'finished'},
-          'message': 'Success', 'success': True, 'code': 0}
+# PROJECT IMPORTS
+from func.src.domain.enums.status_code.enum import InternalCode
+from func.src.domain.exceptions.exceptions import InvalidUsOnboardingStep
+from func.src.domain.response.model import ResponseModel
+
+result = {'terms': True,
+          'user_document_validator': True,
+          'politically_exposed': True,
+          'exchange_member': True,
+          'company_director': True,
+          'external_fiscal_tax_confirmation': True,
+          'employ': True,
+          'time_experience': True,
+          'current_step': 'finished'}
 
 
 class ValidateOnboardingStepsUS:
-
     BASE_URL = 'https://dev.api.siga.me/router/onboarding_steps_us'
 
     @classmethod
@@ -29,8 +35,19 @@ class ValidateOnboardingStepsUS:
 
     @classmethod
     async def onboarding_us_step_validator(cls, thebes_answer: str):
-        response = cls.__get_onboarding_steps_us(thebes_answer=thebes_answer)
-        time_experience = response.get("time_experience")
+        try:
+            # response = cls.__get_onboarding_steps_us(thebes_answer=thebes_answer)
+            time_experience = result.get("time_experience")
 
-        if not time_experience:
-            raise InvalidUsOnboardingStep
+            if not time_experience:
+                raise InvalidUsOnboardingStep
+
+        except Exception as error:
+            Gladsheim.error(error=error)
+            response = ResponseModel(
+                result=False,
+                success=False,
+                code=InternalCode.HTTP_CONNECTION_POLL,
+                message="Error On HTTP Request"
+            ).build_http_response(status=HTTPStatus.INTERNAL_SERVER_ERROR)
+            return response

@@ -14,6 +14,7 @@ class InternalCode(IntEnum):
     INVALID_US_ONBOARDING_STEP = 49
     DATA_WAS_NOT_UPDATED_DRIVE_WEALTH = 59
     UNIQUE_ID_WAS_NOT_UPDATED = 69
+    HTTP_CONNECTION_POLL = 79
 
     def __repr__(self):
         return self.value
