@@ -16,7 +16,7 @@ class ValidateOnboardingStepsBR:
     onboarding_steps_br_url = config("BR_BASE_URL")
 
     @classmethod
-    def get_onboarding_steps_br(cls, thebes_answer: str):
+    def __get_onboarding_steps_br(cls, thebes_answer: str):
         headers = {'x-thebes-answer': "{}".format(thebes_answer)}
         try:
             steps_us_response = requests.get(cls.onboarding_steps_br_url, headers=headers)
@@ -35,7 +35,7 @@ class ValidateOnboardingStepsBR:
 
     @classmethod
     async def onboarding_br_step_validator(cls, thebes_answer: str):
-        response = cls.get_onboarding_steps_br(thebes_answer=thebes_answer)
+        response = cls.__get_onboarding_steps_br(thebes_answer=thebes_answer)
         time_experience = response.get("time_experience")
 
         if not time_experience:
