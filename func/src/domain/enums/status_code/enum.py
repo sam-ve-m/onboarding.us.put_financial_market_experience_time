@@ -12,6 +12,8 @@ class InternalCode(IntEnum):
     INVALID_US_ONBOARDING_STEP = 49
     UNIQUE_ID_WAS_NOT_UPDATED = 69
     HTTP_CONNECTION_POLL = 79
+    ERROR_ON_GETTING_DATA_FROM_BR_STEPS = 89
+    ERROR_ON_GETTING_DATA_FROM_US_STEPS = 99
 
     def __repr__(self):
         return self.value

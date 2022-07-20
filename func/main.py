@@ -17,7 +17,7 @@ from src.domain.exceptions.exceptions import (
     ErrorOnDecodeJwt,
     NotSentToPersephone,
     UniqueIdWasNotUpdate,
-    InvalidParams)
+    InvalidParams, ErrorOnGettingDataFromStepsBr, ErrorOnGettingDataFromStepsUs)
 
 app = Flask(__name__)
 
@@ -102,6 +102,26 @@ async def update_market_experience_time(
             code=InternalCode.INVALID_PARAMS,
             message="Invalid Params Were Sent"
         ).build_http_response(status=HTTPStatus.UNAUTHORIZED)
+        return response
+
+    except ErrorOnGettingDataFromStepsBr as ex:
+        Gladsheim.error(error=ex)
+        response = ResponseModel(
+            result=False,
+            success=False,
+            code=InternalCode.ERROR_ON_GETTING_DATA_FROM_BR_STEPS,
+            message="Http Error while getting data from fission"
+        ).build_http_response(status=HTTPStatus.INTERNAL_SERVER_ERROR)
+        return response
+
+    except ErrorOnGettingDataFromStepsUs as ex:
+        Gladsheim.error(error=ex)
+        response = ResponseModel(
+            result=False,
+            success=False,
+            code=InternalCode.ERROR_ON_GETTING_DATA_FROM_US_STEPS,
+            message="Http Error while getting data from fission"
+        ).build_http_response(status=HTTPStatus.INTERNAL_SERVER_ERROR)
         return response
 
     except Exception as ex:
