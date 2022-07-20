@@ -1,8 +1,16 @@
+# STANDARD IMPORTS
 from unittest.mock import patch
 import pytest
+
+# PROJECT IMPORTS
 from heimdall_client import Heimdall, HeimdallStatusResponses
 from func.src.services.jwt_service.service import JWTService
-from tests.src.services.jwt_service.stub_service import jwt_to_decode_stub, decoded_jwt_stub, jwt_data_stub, jwt_invalid
+from tests.src.services.jwt_service.stub_service import (
+                                                            jwt_to_decode_stub,
+                                                            decoded_jwt_stub,
+                                                            jwt_data_stub,
+                                                            jwt_invalid
+                                                        )
 
 
 @pytest.mark.asyncio

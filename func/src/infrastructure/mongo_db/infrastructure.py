@@ -1,6 +1,6 @@
 # THIRD PART IMPORTS
 from motor.motor_asyncio import AsyncIOMotorClient
-from src.infrastructure.env_config import config
+from func.src.infrastructure.env_config import config
 
 
 class MongoDBInfrastructure:

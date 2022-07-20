@@ -6,9 +6,9 @@ import requests
 from etria_logger import Gladsheim
 
 # PROJECT IMPORTS
-from src.domain.enums.status_code.enum import InternalCode
-from src.domain.exceptions.exceptions import InvalidBrOnboardingStep
-from src.domain.response.model import ResponseModel
+from func.src.domain.enums.status_code.enum import InternalCode
+from func.src.domain.exceptions.exceptions import InvalidBrOnboardingStep
+from func.src.domain.response.model import ResponseModel
 
 result = {'suitability': True,
                      'identifier_data': True,
