@@ -3,8 +3,10 @@ import asyncio
 import datetime
 
 # PROJECT IMPORTS
-from func.src.domain.enums.drive_wealth.account.enum import DriveWealthAccountType, DriveWealthAccountTradingType, \
-    DriveWealthAccountManagementType
+from func.src.domain.enums.drive_wealth.account.enum import (
+        DriveWealthAccountType,
+        DriveWealthAccountTradingType,
+        DriveWealthAccountManagementType)
 from func.src.domain.enums.drive_wealth.file_type.enum import DriveWealthFileType, DriveWealthFileSide
 from func.src.domain.enums.file.user_file.enum import UserFileType
 from func.src.domain.enums.kyc_status.enum import KycStatus
@@ -82,7 +84,7 @@ class DriveWealthService:
             ignore_buying_power=False,
         )
         if not status:
-            raise InternalServerError("common.unable_to_process")
+            raise InternalServerError("DriveWealthService._create_user_account::common.unable to create user account")
         user_id = response["id"]
         user_id_number = response["accountNo"]
         return user_id, user_id_number
@@ -130,7 +132,7 @@ class DriveWealthService:
         status_document_front = save_user_document_front_result[0]
         status_document_back = save_user_document_back_result[0]
         if not (status_document_front and status_document_back):
-            raise InternalServerError("common.unable_to_process")
+            raise InternalServerError("DriveWealthService._send_user_document::common.unable to send user document")
 
     @classmethod
     async def _save_user_and_get_id(cls, user_data: dict) -> str:
@@ -140,7 +142,7 @@ class DriveWealthService:
             user_register_data=registry_body
         )
         if not status:
-            raise InternalServerError("common.unable_to_process")
+            raise InternalServerError("DriveWealthService._save_user_and_get_id::common.unable save user and get ID")
         user_id = response["id"]
         return user_id
 
@@ -152,7 +154,8 @@ class DriveWealthService:
             user_register_data=registry_body, user_dw_id=user_dw_id
         )
         if not status:
-            raise InternalServerError("common.unable_to_process::_update_user_and_get_id::")
+            raise InternalServerError(
+                "DriveWealthService._update_user_and_get_id::common.unable_to_process::_update_user_and_get_id::")
 
     @staticmethod
     async def __get_registry_body(user_data: dict) -> ClientUpdateRegisterBuilderUs:

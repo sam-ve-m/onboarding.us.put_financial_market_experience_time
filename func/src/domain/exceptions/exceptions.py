@@ -11,6 +11,10 @@ class InvalidUsOnboardingStep(Exception):
     msg = "ValidateOnboardingStepsUS.onboarding_us_step_validator::you're not in this step"
 
 
+class DriveWealthConnectionError(Exception):
+    msg = "DWTransport::call_registry_user_patch::Not able to get the response from Drive Wealth"
+
+
 class NotSentToPersephone(Exception):
     msg = "UpdateMarketTimeExperience.update_market_time_experience::sent_to_persephone:: the data was not sent to persephone"
 
