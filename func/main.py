@@ -6,13 +6,18 @@ from flask import request, Response, Request, Flask
 from etria_logger import Gladsheim
 
 # PROJECT IMPORTS
-from func.src.domain.enums.status_code.enum import InternalCode
-from func.src.domain.exceptions.exceptions import InvalidUsOnboardingStep, InvalidBrOnboardingStep, ErrorOnDecodeJwt, \
-    NotSentToPersephone, ClientDataWasNotUpdatedDriveWealth, UniqueIdWasNotUpdate, InvalidParams
-from func.src.domain.models.time_experience.model import TimeExperienceModel
-from func.src.domain.response.model import ResponseModel
-from func.src.services.jwt_service.service import JWTService
-from func.src.services.update_time_experience.service import UpdateMarketTimeExperience
+from src.domain.enums.status_code.enum import InternalCode
+from src.domain.models.time_experience.model import TimeExperienceModel
+from src.domain.response.model import ResponseModel
+from src.services.jwt_service.service import JWTService
+from src.services.update_time_experience.service import UpdateMarketTimeExperience
+from src.domain.exceptions.exceptions import (
+    InvalidUsOnboardingStep,
+    InvalidBrOnboardingStep,
+    ErrorOnDecodeJwt,
+    NotSentToPersephone,
+    UniqueIdWasNotUpdate,
+    InvalidParams)
 
 app = Flask(__name__)
 
