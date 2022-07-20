@@ -152,7 +152,7 @@ class DriveWealthService:
             user_register_data=registry_body, user_dw_id=user_dw_id
         )
         if not status:
-            raise InternalServerError("common.unable_to_process")
+            raise InternalServerError("common.unable_to_process::_update_user_and_get_id::")
 
     @staticmethod
     async def __get_registry_body(user_data: dict) -> ClientUpdateRegisterBuilderUs:

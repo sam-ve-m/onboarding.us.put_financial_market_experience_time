@@ -1,4 +1,4 @@
-# THIRD PARTY IMPORTS
+# THIRD PART IMPORTS
 import aioredis
 
 

@@ -5,7 +5,6 @@ from io import BytesIO
 from typing import Union, Optional
 from aiohttp import ClientSession
 
-
 # OUTSIDE LIBRARIES
 from func.src.domain.enums.file.terms_file.enum import TermsFileType
 from func.src.domain.enums.file.user_file.enum import UserFileType

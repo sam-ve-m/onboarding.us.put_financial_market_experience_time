@@ -1,7 +1,7 @@
 # STANDARD IMPORTS
 from typing import List
 
-# THIRD PARTY IMPORTS
+# THIRD PART IMPORTS
 from etria_logger import Gladsheim
 import cx_Oracle
 

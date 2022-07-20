@@ -1,9 +1,8 @@
 # STANDARD IMPORTS
 from http import HTTPStatus
 from flask import request, Response, Request, Flask
-import asyncio
 
-# THIRD PARTY IMPORTS
+# THIRD PART IMPORTS
 from etria_logger import Gladsheim
 
 # PROJECT IMPORTS
@@ -15,7 +14,6 @@ from func.src.domain.response.model import ResponseModel
 from func.src.services.jwt_service.service import JWTService
 from func.src.services.update_time_experience.service import UpdateMarketTimeExperience
 
-loop = asyncio.get_event_loop()
 app = Flask(__name__)
 
 

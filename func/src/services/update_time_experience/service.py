@@ -44,6 +44,4 @@ class UpdateMarketTimeExperience:
         user_data = await UserRepository.find_one({"unique_id": unique_id})
         await DriveWealthService.registry_update_client(user_data=user_data)
 
-        return {
-            "message_key": "requests.updated",
-        }
+        return bool(user_data)

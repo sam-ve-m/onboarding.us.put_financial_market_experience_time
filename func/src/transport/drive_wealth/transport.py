@@ -1,12 +1,12 @@
-# Standards
+# STANDARD IMPORTS
 from typing import Tuple
 import json
 
-# Third part
+# THIRD PART IMPORT
 from aiohttp import ClientResponse
-
-# Jotunheimr
 from mepho import DWApiTransport
+
+# PROJECT IMPORTS
 
 from func.src.domain.enums.drive_wealth.account.enum import DriveWealthAccountType, DriveWealthAccountTradingType, \
     DriveWealthAccountManagementType

@@ -1,3 +1,4 @@
+# PROJECT IMPORTS
 from valhalla_client.main import SocialNetworkQueue, StatusResponse, Producer
 from func.src.domain.exceptions.exceptions import InternalServerError
 from func.src.infrastructure.env_config import config

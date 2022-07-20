@@ -2,7 +2,7 @@
 from http import HTTPStatus
 import requests
 
-# THIRD PARTY IMPORTS
+# THIRD PART IMPORTS
 from etria_logger import Gladsheim
 
 # PROJECT IMPORTS

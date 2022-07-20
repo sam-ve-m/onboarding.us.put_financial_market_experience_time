@@ -1,4 +1,4 @@
-# THIRD PARTY IMPORTS
+# THIRD PART IMPORTS
 from contextlib import asynccontextmanager
 import cx_Oracle_async
 

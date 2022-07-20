@@ -2,7 +2,7 @@
 from json import dumps
 from flask import Response
 
-# THIRD PARTY IMPORTS
+# THIRD PART IMPORTS
 from nidavellir import Sindri
 
 # PROJECT IMPORTS

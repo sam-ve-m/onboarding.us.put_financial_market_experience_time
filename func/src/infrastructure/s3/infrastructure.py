@@ -1,4 +1,4 @@
-# THIRD PARTY IMPORTS
+# THIRD PART IMPORTS
 import aioboto3
 from contextlib import asynccontextmanager
 from etria_logger import Gladsheim

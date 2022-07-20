@@ -3,7 +3,7 @@ from typing import Optional
 from etria_logger import Gladsheim
 from datetime import datetime
 
-# THIRD PARTY IMPORTS
+# THIRD PART IMPORTS
 from nidavellir import Sindri
 
 # PROJECT IMPORTS
