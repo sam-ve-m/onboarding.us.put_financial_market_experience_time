@@ -3,8 +3,10 @@ from unittest.mock import patch
 import pytest
 
 # PROJECT IMPORTS
-from tests.src.services.jwt_service.stub_service import jwt_to_decode_stub
 from func.src.transport.onboarding_steps_br import ValidateOnboardingStepsBR
+
+# STUB IMPORTS
+from tests.src.services.jwt_service.stub_service import jwt_to_decode_stub
 from tests.src.transport.stub_onboarding_steps import br_steps_result_stub
 
 

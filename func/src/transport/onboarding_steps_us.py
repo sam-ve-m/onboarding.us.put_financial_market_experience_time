@@ -7,7 +7,7 @@ from etria_logger import Gladsheim
 
 # PROJECT IMPORTS
 from func.src.domain.enums.status_code.enum import InternalCode
-from func.src.domain.exceptions.exceptions import InvalidUsOnboardingStep
+from func.src.domain.exceptions.exceptions import InvalidUsOnboardingStep, ErrorOnGettingDataFromStepsUs
 from func.src.domain.response.model import ResponseModel
 from func.src.infrastructure.env_config import config
 
@@ -24,7 +24,7 @@ class ValidateOnboardingStepsUS:
             response = steps_us_response.json().get("result")
             return response
 
-        except Exception as error:
+        except ErrorOnGettingDataFromStepsUs as error:
             Gladsheim.error(error=error)
             response = ResponseModel(
                 result=False,

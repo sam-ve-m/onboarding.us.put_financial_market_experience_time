@@ -23,7 +23,8 @@ class ValidateOnboardingStepsBR:
 
             response = steps_us_response.json().get("result")
             return response
-        except Exception as error:
+
+        except ErrorOnGettingDataFromStepsBr as error:
             Gladsheim.error(error=error)
             response = ResponseModel(
                 result=False,
