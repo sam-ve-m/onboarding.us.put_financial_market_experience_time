@@ -4,7 +4,6 @@ import asyncio
 # PROJECT IMPORTS
 from func.src.domain.exceptions.exceptions import UniqueIdWasNotUpdate
 from func.src.repositories.user.repository import UserRepository
-from func.src.services.drive_wealth.service import DriveWealthService
 from func.src.services.persephone.service import SendToPersephone
 from func.src.transport.onboarding_steps_br import ValidateOnboardingStepsBR
 from func.src.transport.onboarding_steps_us import ValidateOnboardingStepsUS
@@ -41,7 +40,4 @@ class UpdateMarketTimeExperience:
         if not was_updated:
             raise UniqueIdWasNotUpdate
 
-        user_data = await UserRepository.find_one({"unique_id": unique_id})
-        await DriveWealthService.registry_update_client(user_data=user_data)
-
-        return bool(user_data)
+        return bool(was_updated)

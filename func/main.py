@@ -8,8 +8,7 @@ from etria_logger import Gladsheim
 # PROJECT IMPORTS
 from func.src.domain.enums.status_code.enum import InternalCode
 from func.src.domain.exceptions.exceptions import InvalidUsOnboardingStep, InvalidBrOnboardingStep, ErrorOnDecodeJwt, \
-    NotSentToPersephone, ClientDataWasNotUpdatedDriveWealth, UniqueIdWasNotUpdate, InvalidParams, \
-    DriveWealthConnectionError
+    NotSentToPersephone, ClientDataWasNotUpdatedDriveWealth, UniqueIdWasNotUpdate, InvalidParams
 from func.src.domain.models.time_experience.model import TimeExperienceModel
 from func.src.domain.response.model import ResponseModel
 from func.src.services.jwt_service.service import JWTService
@@ -70,16 +69,6 @@ async def update_market_experience_time(
         ).build_http_response(status=HTTPStatus.UNAUTHORIZED)
         return response
 
-    except ClientDataWasNotUpdatedDriveWealth as ex:
-        Gladsheim.error(error=ex)
-        response = ResponseModel(
-            result=False,
-            success=False,
-            code=InternalCode.DATA_WAS_NOT_UPDATED_DRIVE_WEALTH,
-            message="Data was not updated on drive wealth service"
-        ).build_http_response(status=HTTPStatus.UNAUTHORIZED)
-        return response
-
     except UniqueIdWasNotUpdate as ex:
         Gladsheim.error(error=ex)
         response = ResponseModel(
@@ -108,16 +97,6 @@ async def update_market_experience_time(
             code=InternalCode.INVALID_PARAMS,
             message="Invalid Params Were Sent"
         ).build_http_response(status=HTTPStatus.UNAUTHORIZED)
-        return response
-
-    except DriveWealthConnectionError as ex:
-        Gladsheim.error(error=ex)
-        response = ResponseModel(
-            result=False,
-            success=False,
-            code=InternalCode.INVALID_PARAMS,
-            message="Not able to connect with Drive Wealth Application"
-        ).build_http_response(status=HTTPStatus.INTERNAL_SERVER_ERROR)
         return response
 
     except Exception as ex:
