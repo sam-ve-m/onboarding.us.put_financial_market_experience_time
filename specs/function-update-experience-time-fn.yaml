@@ -1,14 +1,14 @@
 include:
 - ./func/*
 kind: ArchiveUploadSpec
-name: func-JhRt
+name: func-50lH
 
 ---
 apiVersion: fission.io/v1
 kind: Package
 metadata:
   creationTimestamp: null
-  name: update-experience-time-fn-36e21266-295c-4f2b-9a15-fd342a10f17f
+  name: update-experience-time-fn-2b1b5582-16f1-4e47-88d2-8bf1826c4d71
   namespace: default
 spec:
   deployment:
@@ -19,10 +19,10 @@ spec:
   source:
     checksum: {}
     type: url
-    url: archive://func-JhRt
+    url: archive://func-50lH
 status:
   buildstatus: pending
-  lastUpdateTimestamp: "2022-07-20T19:31:37Z"
+  lastUpdateTimestamp: "2022-07-20T19:55:40Z"
 
 ---
 apiVersion: fission.io/v1
@@ -49,7 +49,7 @@ spec:
   package:
     functionName: main.update_experience_time
     packageref:
-      name: update-experience-time-fn-36e21266-295c-4f2b-9a15-fd342a10f17f
+      name: update-experience-time-fn-2b1b5582-16f1-4e47-88d2-8bf1826c4d71
       namespace: default
   requestsPerPod: 1
   resources: {}
