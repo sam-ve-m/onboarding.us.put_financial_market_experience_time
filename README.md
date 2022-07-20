@@ -16,14 +16,21 @@ UserService.update_time_experience_us
 &nbsp; 
 ##### BODY REQUEST
 ```
-
+{
+    "time_experience": "10"
+}
 ```
 &nbsp;
 
 #### MODELO DE RESPOSTA:
 
 ```
-
+{
+    "result": true,
+    "message": "The Time Experience of Financial Market Was Updated Successfully",
+    "success": true,
+    "code": 200
+}
 
 ```
 &nbsp;

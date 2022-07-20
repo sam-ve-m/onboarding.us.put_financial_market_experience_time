@@ -1,6 +1,6 @@
 # STANDARD IMPORTS
 from http import HTTPStatus
-from flask import request, Response, Request, Flask
+from flask import request, Response, Request
 
 # THIRD PART IMPORTS
 from etria_logger import Gladsheim
@@ -12,17 +12,17 @@ from src.domain.response.model import ResponseModel
 from src.services.jwt_service.service import JWTService
 from src.services.update_time_experience.service import UpdateMarketTimeExperience
 from src.domain.exceptions.exceptions import (
-    InvalidUsOnboardingStep,
-    InvalidBrOnboardingStep,
-    ErrorOnDecodeJwt,
-    NotSentToPersephone,
-    UniqueIdWasNotUpdate,
-    InvalidParams, ErrorOnGettingDataFromStepsBr, ErrorOnGettingDataFromStepsUs)
+                                        InvalidUsOnboardingStep,
+                                        InvalidBrOnboardingStep,
+                                        ErrorOnDecodeJwt,
+                                        NotSentToPersephone,
+                                        UniqueIdWasNotUpdate,
+                                        InvalidParams,
+                                        ErrorOnGettingDataFromStepsBr,
+                                        ErrorOnGettingDataFromStepsUs
+                                    )
 
-app = Flask(__name__)
 
-
-@app.route('/put/update_market_experience_time')
 async def update_market_experience_time(
         request_body: Request = request) -> Response:
     thebes_answer = request_body.headers.get("x-thebes-answer")
@@ -133,6 +133,3 @@ async def update_market_experience_time(
             message="Unexpected error occurred"
         ).build_http_response(status=HTTPStatus.INTERNAL_SERVER_ERROR)
         return response
-
-if __name__ == "__main__":
-    app.run(debug=True)
