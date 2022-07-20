@@ -5,7 +5,7 @@ from flask import Flask
 from werkzeug.datastructures import Headers
 
 # PROJECT IMPORTS
-from func.main import update_market_experience_time
+from func.main import update_experience_time
 
 # STUB IMPORTS
 from src.services.jwt_service.service import JWTService
@@ -25,7 +25,7 @@ async def test_when_sending_right_params_to_update_market_experience_time_then_r
             json=request_body_stub,
             headers=Headers({"x-thebes-answer": "jwt_to_decode_stub"}),
     ).request as request:
-        response = await update_market_experience_time(
+        response = await update_experience_time(
             request_body=request
         )
         assert response.status_code == 200
@@ -44,6 +44,6 @@ async def test_when_sending_right_params_to_update_market_experience_time_then_r
             headers=Headers({"x-thebes-answer": "jwt_to_decode_stub"}),
     ).request as request:
         with pytest.raises(Exception):
-            await update_market_experience_time(
+            await update_experience_time(
                 request_body=None
             )

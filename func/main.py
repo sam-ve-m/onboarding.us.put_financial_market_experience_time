@@ -23,7 +23,7 @@ from src.domain.exceptions.exceptions import (
                                     )
 
 
-async def update_market_experience_time(
+async def update_experience_time(
         request_body: Request = request) -> Response:
     thebes_answer = request_body.headers.get("x-thebes-answer")
 
