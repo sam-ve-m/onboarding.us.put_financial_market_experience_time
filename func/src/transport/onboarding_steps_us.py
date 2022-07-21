@@ -10,7 +10,6 @@ from etria_logger import Gladsheim
 from src.domain.enums.status_code.enum import InternalCode
 from src.domain.exceptions.exceptions import InvalidUsOnboardingStep, ErrorOnGettingDataFromStepsUs
 from src.domain.response.model import ResponseModel
-from tests.src.transport.stub_onboarding_steps import br_steps_result_stub
 
 
 class ValidateOnboardingStepsUS:
@@ -18,7 +17,7 @@ class ValidateOnboardingStepsUS:
 
     @classmethod
     def __get_onboarding_steps_us(cls, thebes_answer: str):
-        headers = {'x-thebes-answer': "{}".format(thebes_answer)}
+        # headers = {'x-thebes-answer': "{}".format(thebes_answer)}
         try:
             # Todo - Fission route not yet deployed to access by http requests
             # steps_us_response = requests.get(cls.onboarding_steps_us_url, headers=headers)

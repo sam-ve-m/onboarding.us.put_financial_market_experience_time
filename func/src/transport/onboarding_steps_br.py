@@ -17,7 +17,7 @@ class ValidateOnboardingStepsBR:
 
     @classmethod
     def __get_onboarding_steps_br(cls, thebes_answer: str):
-        headers = {'x-thebes-answer': "{}".format(thebes_answer)}
+        # headers = {'x-thebes-answer': "{}".format(thebes_answer)}
         try:
             # Todo - Fission route not yet deployed to access by http requests
             # steps_us_response = requests.get(cls.onboarding_steps_br_url, headers=headers)
