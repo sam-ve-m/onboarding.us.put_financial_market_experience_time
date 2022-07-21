@@ -17,3 +17,13 @@ us_steps_result_stub = {'terms': True,
           'employ': True,
           'time_experience': True,
           'current_step': 'finished'}
+
+steps_result = {'terms': True,
+          'user_document_validator': True,
+          'politically_exposed': True,
+          'exchange_member': True,
+          'company_director': True,
+          'external_fiscal_tax_confirmation': True,
+          'employ': True,
+          'time_experience': True,
+          'current_step': 'finished'}

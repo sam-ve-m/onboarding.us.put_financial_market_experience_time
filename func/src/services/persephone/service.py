@@ -1,12 +1,12 @@
 # THIRD PARTY IMPORTS
+from decouple import config
 from etria_logger import Gladsheim
 from persephone_client import Persephone
 
 # PROJECT IMPORTS
-from func.src.domain.models.time_experience.model import TimeExperienceTemplates
-from func.src.infrastructure.env_config import config
-from func.src.domain.enums.persephone_queue.enum import PersephoneQueue
-from func.src.domain.exceptions.exceptions import NotSentToPersephone
+from src.domain.models.time_experience.model import TimeExperienceTemplates
+from src.domain.enums.persephone_queue.enum import PersephoneQueue
+from src.domain.exceptions.exceptions import NotSentToPersephone
 
 
 class SendToPersephone:

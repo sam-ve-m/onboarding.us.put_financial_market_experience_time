@@ -3,13 +3,13 @@ from http import HTTPStatus
 import requests
 
 # THIRD PART IMPORTS
+from decouple import config
 from etria_logger import Gladsheim
 
 # PROJECT IMPORTS
-from func.src.domain.enums.status_code.enum import InternalCode
-from func.src.domain.exceptions.exceptions import InvalidBrOnboardingStep, ErrorOnGettingDataFromStepsBr
-from func.src.domain.response.model import ResponseModel
-from func.src.infrastructure.env_config import config
+from src.domain.enums.status_code.enum import InternalCode
+from src.domain.exceptions.exceptions import InvalidBrOnboardingStep, ErrorOnGettingDataFromStepsBr
+from src.domain.response.model import ResponseModel
 
 
 class ValidateOnboardingStepsBR:
@@ -19,9 +19,18 @@ class ValidateOnboardingStepsBR:
     def __get_onboarding_steps_br(cls, thebes_answer: str):
         headers = {'x-thebes-answer': "{}".format(thebes_answer)}
         try:
-            steps_us_response = requests.get(cls.onboarding_steps_br_url, headers=headers)
+            # Todo - Fission route not yet deployed to access by http requests
+            # steps_us_response = requests.get(cls.onboarding_steps_br_url, headers=headers)
 
-            response = steps_us_response.json().get("result")
+            response = {'terms': True,
+                        'user_document_validator': True,
+                        'politically_exposed': True,
+                        'exchange_member': True,
+                        'company_director': True,
+                        'external_fiscal_tax_confirmation': True,
+                        'employ': True,
+                        'time_experience': True,
+                        'current_step': 'finished'}
             return response
 
         except ErrorOnGettingDataFromStepsBr as error:

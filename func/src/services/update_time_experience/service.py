@@ -2,11 +2,11 @@
 import asyncio
 
 # PROJECT IMPORTS
-from func.src.domain.exceptions.exceptions import UniqueIdWasNotUpdate
-from func.src.repositories.user.repository import UserRepository
-from func.src.services.persephone.service import SendToPersephone
-from func.src.transport.onboarding_steps_br import ValidateOnboardingStepsBR
-from func.src.transport.onboarding_steps_us import ValidateOnboardingStepsUS
+from src.domain.exceptions.exceptions import UniqueIdWasNotUpdate
+from src.repositories.user.repository import UserRepository
+from src.services.persephone.service import SendToPersephone
+from src.transport.onboarding_steps_br import ValidateOnboardingStepsBR
+from src.transport.onboarding_steps_us import ValidateOnboardingStepsUS
 
 
 class UpdateMarketTimeExperience:
