@@ -16,9 +16,6 @@ spec:
   poolsize: 3
   resources: {}
   runtime:
-    container:
-      name: ""
-      resources: {}
     image: nexus.sigame.com.br/fission-async:0.1.6
     podspec:
       containers:
