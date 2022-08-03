@@ -32,7 +32,7 @@ class UserRepository:
             raise ex
 
     @classmethod
-    async def update_user_and_time_experience_(
+    async def update_user_and_time_experience(
             cls,
             jwt_data: Jwt
     ):

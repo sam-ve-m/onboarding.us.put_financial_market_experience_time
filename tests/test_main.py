@@ -2,22 +2,29 @@
 from unittest.mock import patch
 import pytest
 from flask import Flask
+from heimdall_client import HeimdallStatusResponses, Heimdall
 from werkzeug.datastructures import Headers
 
 # PROJECT IMPORTS
 from func.main import update_experience_time
 
 # STUB IMPORTS
-from src.services.jwt_service.service import JWTService
+from src.domain.models.jwt.models import Jwt
 from src.services.update_time_experience.service import UpdateMarketTimeExperience
-from tests.main_stub import request_body_stub, decoded_jwt_stub
+from tests.main_stub import request_body_stub
+
+jwt_response = "125458.hagfsdsa"
 
 
 @pytest.mark.asyncio
-@patch.object(JWTService, "decode_jwt_from_request", return_value=decoded_jwt_stub)
+@patch.object(Jwt, "_Jwt__decode_and_validate_jwt", return_value=jwt_response)
+@patch.object(Jwt, "get_unique_id_from_jwt_payload", return_value=jwt_response)
+@patch.object(Jwt, "get_experience_time_from_jwt_payload", return_value=jwt_response)
 @patch.object(UpdateMarketTimeExperience, "update_market_time_experience", return_value=True)
 async def test_when_sending_right_params_to_update_market_experience_time_then_return_the_expected(
-        mock_decode_jwt_from_request,
+        mock_decode_and_validate_jwt,
+        mock_get_unique_id_from_jwt_payload,
+        mock_get_w8_confirmation_from_jwt_payload,
         mock_update_market_time_experience
 ):
     app = Flask(__name__)
@@ -32,10 +39,14 @@ async def test_when_sending_right_params_to_update_market_experience_time_then_r
 
 
 @pytest.mark.asyncio
-@patch.object(JWTService, "decode_jwt_from_request", return_value=Exception)
+@patch.object(Heimdall, "decode_payload", return_value=(None, HeimdallStatusResponses.INVALID_TOKEN))
+@patch.object(Jwt, "get_unique_id_from_jwt_payload", return_value=jwt_response)
+@patch.object(Jwt, "get_experience_time_from_jwt_payload", return_value=jwt_response)
 @patch.object(UpdateMarketTimeExperience, "update_market_time_experience", return_value=Exception)
 async def test_when_sending_right_params_to_update_market_experience_time_then_return_the_expected(
-        mock_decode_jwt_from_request,
+        mock_decode_and_validate_jwt,
+        mock_get_unique_id_from_jwt_payload,
+        mock_get_w8_confirmation_from_jwt_payload,
         mock_update_market_time_experience
 ):
     app = Flask(__name__)

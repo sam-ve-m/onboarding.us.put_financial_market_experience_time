@@ -20,9 +20,9 @@ class UpdateMarketTimeExperience:
             time_experience_request: TimeExperienceRequest
             ):
 
-        br_step_validator = ValidateOnboardingStepsBR.onboarding_br_step_validator(jwt_data=jwt_data)
+        br_step_validator = ValidateOnboardingStepsBR.validate_onboarding_steps_br(jwt_data=jwt_data)
 
-        us_step_validator = ValidateOnboardingStepsUS.onboarding_us_step_validator(jwt_data=jwt_data)
+        us_step_validator = ValidateOnboardingStepsUS.validate_onboarding_steps_us(jwt_data=jwt_data)
 
         await asyncio.gather(br_step_validator, us_step_validator)
 
@@ -31,7 +31,7 @@ class UpdateMarketTimeExperience:
             time_experience_request=time_experience_request
         )
 
-        was_updated = await UserRepository.update_user_and_time_experience_(
+        was_updated = await UserRepository.update_user_and_time_experience(
             jwt_data=jwt_data
         )
 

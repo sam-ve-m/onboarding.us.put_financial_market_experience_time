@@ -26,7 +26,7 @@ class SendToPersephone:
             partition=PersephoneQueue.USER_TRADE_TIME_EXPERIENCE_IN_US.value,
             message=TimeExperienceTemplates.user_time_experience_schema_template(
                 time_experience=time_experience_request,
-                unique_id=jwt_data.get_experience_time_from_jwt_payload(),
+                jwt_data=jwt_data,
             ),
             schema_name="user_time_experience_us_schema",
         )
