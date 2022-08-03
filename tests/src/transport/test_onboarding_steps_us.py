@@ -4,7 +4,6 @@ import pytest
 
 # PROJECT IMPORTS
 from tests.src.transport.stub_onboarding_steps import us_steps_result_stub
-from tests.src.services.jwt_service.stub_service import jwt_to_decode_stub
 from func.src.transport.onboarding_steps_us import ValidateOnboardingStepsUS
 
 

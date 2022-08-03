@@ -7,32 +7,31 @@ from etria_logger import Gladsheim
 
 # PROJECT IMPORTS
 from src.domain.enums.status_code.enum import InternalCode
-from src.domain.models.time_experience.model import TimeExperienceModel
-from src.domain.response.model import ResponseModel
-from src.services.jwt_service.service import JWTService
+from src.domain.models.jwt.models import Jwt
+from src.domain.models.time_experience.model import TimeExperienceRequest
+from src.domain.models.response.model import ResponseModel
 from src.services.update_time_experience.service import UpdateMarketTimeExperience
 from src.domain.exceptions.exceptions import (
-                                        InvalidUsOnboardingStep,
-                                        InvalidBrOnboardingStep,
-                                        ErrorOnDecodeJwt,
-                                        NotSentToPersephone,
-                                        UniqueIdWasNotUpdate,
-                                        InvalidParams,
-                                        ErrorOnGettingDataFromStepsBr,
-                                        ErrorOnGettingDataFromStepsUs
-                                    )
+    ErrorOnDecodeJwt,
+    NotSentToPersephone,
+    UniqueIdWasNotUpdate,
+    ErrorOnGettingDataFromStepsBr,
+    ErrorOnGettingDataFromStepsUs, InvalidOnboardingStep
+)
 
 
 async def update_experience_time(request_body: Request = request) -> Response:
     thebes_answer = request_body.headers.get("x-thebes-answer")
 
     try:
-        jwt_data = await JWTService.decode_jwt_from_request(jwt_data=thebes_answer)
-        time_experience = TimeExperienceModel(**request_body.json).dict()
-        payload = {"x-thebes-answer": jwt_data}
-        payload.update(time_experience)
+        jwt_data = Jwt(jwt=thebes_answer)
+        await jwt_data()
+
+        time_experience_request = TimeExperienceRequest(**request_body.json)
+
         service_response = await UpdateMarketTimeExperience.update_market_time_experience(
-            thebes_answer=thebes_answer, jwt_data=payload
+            jwt_data=jwt_data,
+            time_experience_request=time_experience_request
         )
 
         response = ResponseModel(
@@ -43,12 +42,12 @@ async def update_experience_time(request_body: Request = request) -> Response:
         ).build_http_response(status=HTTPStatus.OK)
         return response
 
-    except InvalidBrOnboardingStep as ex:
+    except InvalidOnboardingStep as ex:
         Gladsheim.error(error=ex)
         response = ResponseModel(
             result=False,
             success=False,
-            code=InternalCode.INVALID_BR_ONBOARDING_STEP,
+            code=InternalCode.INVALID_ONBOARDING_STEP,
             message="Invalid Onboarding Step"
         ).build_http_response(status=HTTPStatus.UNAUTHORIZED)
         return response
@@ -80,26 +79,6 @@ async def update_experience_time(request_body: Request = request) -> Response:
             success=False,
             code=InternalCode.UNIQUE_ID_WAS_NOT_UPDATED,
             message="Unique Id Was Not Updated"
-        ).build_http_response(status=HTTPStatus.UNAUTHORIZED)
-        return response
-
-    except InvalidUsOnboardingStep as ex:
-        Gladsheim.error(error=ex)
-        response = ResponseModel(
-            result=False,
-            success=False,
-            code=InternalCode.INVALID_US_ONBOARDING_STEP,
-            message="Invalid Onboarding Step"
-        ).build_http_response(status=HTTPStatus.UNAUTHORIZED)
-        return response
-
-    except InvalidParams as ex:
-        Gladsheim.error(error=ex)
-        response = ResponseModel(
-            result=False,
-            success=False,
-            code=InternalCode.INVALID_PARAMS,
-            message="Invalid Params Were Sent"
         ).build_http_response(status=HTTPStatus.UNAUTHORIZED)
         return response
 

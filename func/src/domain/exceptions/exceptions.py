@@ -3,11 +3,7 @@ class ErrorOnDecodeJwt(Exception):
           " jwt not decoded successfully"
 
 
-class InvalidBrOnboardingStep(Exception):
-    msg = "ValidateOnboardingStepsBR.onboarding_br_step_validator::you're not in this step"
-
-
-class InvalidUsOnboardingStep(Exception):
+class InvalidOnboardingStep(Exception):
     msg = "ValidateOnboardingStepsUS.onboarding_us_step_validator::you're not in this step"
 
 
@@ -25,11 +21,3 @@ class NotSentToPersephone(Exception):
 
 class UniqueIdWasNotUpdate(Exception):
     msg = "UpdateMarketTimeExperience.update_market_time_experience::was_updated:: The user was not updated"
-
-
-class InvalidParams(Exception):
-    msg = "Jormungandr-Onboarding::w8_confirmation_param::Invalid params were sent"
-
-
-class InternalServerError(Exception):
-    pass
