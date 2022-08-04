@@ -15,8 +15,8 @@ from src.domain.exceptions.exceptions import (
     ErrorOnDecodeJwt,
     NotSentToPersephone,
     UniqueIdWasNotUpdate,
-    ErrorOnGettingDataFromStepsBr,
-    ErrorOnGettingDataFromStepsUs, InvalidOnboardingStep
+    InvalidOnboardingStep,
+    TransportOnboardingError
 )
 
 
@@ -62,6 +62,15 @@ async def update_experience_time(request_body: Request = request) -> Response:
         ).build_http_response(status=HTTPStatus.UNAUTHORIZED)
         return response
 
+    except TransportOnboardingError as error:
+        Gladsheim.error(error=error, message=error.msg)
+        response = ResponseModel(
+            success=False,
+            code=InternalCode.TRANSPORT_ON_BOARDING_ERROR,
+            message="update_w8_form_confirmation::sent_to_persephone:false"
+        ).build_http_response(status=HTTPStatus.INTERNAL_SERVER_ERROR)
+        return response
+
     except NotSentToPersephone as ex:
         Gladsheim.error(error=ex)
         response = ResponseModel(
@@ -80,26 +89,6 @@ async def update_experience_time(request_body: Request = request) -> Response:
             code=InternalCode.UNIQUE_ID_WAS_NOT_UPDATED,
             message="Unique Id Was Not Updated"
         ).build_http_response(status=HTTPStatus.UNAUTHORIZED)
-        return response
-
-    except ErrorOnGettingDataFromStepsBr as ex:
-        Gladsheim.error(error=ex)
-        response = ResponseModel(
-            result=False,
-            success=False,
-            code=InternalCode.ERROR_ON_GETTING_DATA_FROM_BR_STEPS,
-            message="Http Error while getting data from fission"
-        ).build_http_response(status=HTTPStatus.INTERNAL_SERVER_ERROR)
-        return response
-
-    except ErrorOnGettingDataFromStepsUs as ex:
-        Gladsheim.error(error=ex)
-        response = ResponseModel(
-            result=False,
-            success=False,
-            code=InternalCode.ERROR_ON_GETTING_DATA_FROM_US_STEPS,
-            message="Http Error while getting data from fission"
-        ).build_http_response(status=HTTPStatus.INTERNAL_SERVER_ERROR)
         return response
 
     except Exception as ex:
