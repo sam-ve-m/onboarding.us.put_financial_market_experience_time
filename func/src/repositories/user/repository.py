@@ -2,9 +2,11 @@
 from decouple import config
 
 # PROJECT IMPORTS
-from etria_logger import Gladsheim
-from src.domain.models.jwt.models import Jwt
+from src.domain.exceptions.exceptions import UserWasNotFound
 from src.infrastructure.mongo_db.infrastructure import MongoDBInfrastructure
+
+# THIRD PART IMPORTS
+from etria_logger import Gladsheim
 
 
 class UserRepository:
@@ -34,20 +36,23 @@ class UserRepository:
     @classmethod
     async def update_user_and_time_experience(
             cls,
-            jwt_data: Jwt
+            unique_id: str,
+            time_experience_request: str
     ):
+        user_filter = {"unique_id": unique_id}
+        time_experience = {
+            "$set": {
+                "external_exchange_requirements.us.time_experience": time_experience_request}
+        }
         try:
             collection = await cls.__get_collection()
-
-            time_experience_was_updated = await collection.update_one(
-                old={
-                    "unique_id": jwt_data.get_unique_id_from_jwt_payload()
-                },
-                new={
-                    "external_exchange_requirements.us.time_experience": jwt_data.get_experience_time_from_jwt_payload()
-                },
+            was_updated = await collection.update_one(
+                user_filter, time_experience
             )
-            return bool(time_experience_was_updated)
+
+            if not was_updated.matched_count == 1:
+                raise UserWasNotFound
+            return bool(was_updated)
 
         except Exception as error:
             Gladsheim.error(error=error)

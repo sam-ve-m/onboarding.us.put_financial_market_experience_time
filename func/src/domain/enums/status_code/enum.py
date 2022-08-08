@@ -9,9 +9,8 @@ class InternalCode(IntEnum):
     NOT_SENT_TO_PERSEPHONE = 60
     INVALID_ONBOARDING_STEP = 109
     UNIQUE_ID_WAS_NOT_UPDATED = 69
-    ERROR_ON_GETTING_DATA_FROM_BR_STEPS = 89
     TRANSPORT_ON_BOARDING_ERROR = 88
-    ERROR_ON_GETTING_DATA_FROM_US_STEPS = 99
+    USER_WAS_NOT_FOUND = 66
 
     def __repr__(self):
         return self.value

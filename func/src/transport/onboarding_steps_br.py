@@ -1,5 +1,4 @@
 # STANDARD IMPORTS
-import requests
 import aiohttp
 
 # THIRD PART IMPORTS

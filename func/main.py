@@ -16,7 +16,7 @@ from src.domain.exceptions.exceptions import (
     NotSentToPersephone,
     UniqueIdWasNotUpdate,
     InvalidOnboardingStep,
-    TransportOnboardingError
+    TransportOnboardingError, UserWasNotFound
 )
 
 
@@ -79,6 +79,16 @@ async def update_experience_time(request_body: Request = request) -> Response:
             code=InternalCode.NOT_SENT_TO_PERSEPHONE,
             message="Not Sent to Persephone"
         ).build_http_response(status=HTTPStatus.UNAUTHORIZED)
+        return response
+
+    except UserWasNotFound as ex:
+        Gladsheim.error(error=ex)
+        response = ResponseModel(
+            result=False,
+            success=False,
+            code=InternalCode.USER_WAS_NOT_FOUND,
+            message="User Not Found"
+        ).build_http_response(status=HTTPStatus.INTERNAL_SERVER_ERROR)
         return response
 
     except UniqueIdWasNotUpdate as ex:

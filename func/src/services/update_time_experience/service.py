@@ -32,7 +32,8 @@ class UpdateMarketTimeExperience:
         )
 
         was_updated = await UserRepository.update_user_and_time_experience(
-            jwt_data=jwt_data
+            unique_id=jwt_data.get_unique_id_from_jwt_payload(),
+            time_experience_request=time_experience_request.time_experience
         )
 
         if not was_updated:
