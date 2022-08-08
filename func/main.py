@@ -67,7 +67,7 @@ async def update_experience_time(request_body: Request = request) -> Response:
         response = ResponseModel(
             success=False,
             code=InternalCode.TRANSPORT_ON_BOARDING_ERROR,
-            message="update_w8_form_confirmation::sent_to_persephone:false"
+            message="ValidateOnboardingSteps::validate_onboarding_steps::You're not in this step"
         ).build_http_response(status=HTTPStatus.INTERNAL_SERVER_ERROR)
         return response
 
