@@ -1,0 +1,55 @@
+include:
+- ./func/*
+kind: ArchiveUploadSpec
+name: func-HdRp
+
+---
+apiVersion: fission.io/v1
+kind: Package
+metadata:
+  creationTimestamp: null
+  name: update-experience-time-fn-3dd8ddff-e3d6-4bf0-a9ea-ea8507ca0063
+  namespace: default
+spec:
+  deployment:
+    checksum: {}
+  environment:
+    name: update-experience-time-env
+    namespace: default
+  source:
+    checksum: {}
+    type: url
+    url: archive://func-HdRp
+status:
+  buildstatus: pending
+  lastUpdateTimestamp: "2022-08-09T11:00:40Z"
+
+---
+apiVersion: fission.io/v1
+kind: Function
+metadata:
+  creationTimestamp: null
+  name: update-experience-time-fn
+  namespace: default
+spec:
+  InvokeStrategy:
+    ExecutionStrategy:
+      ExecutorType: newdeploy
+      MaxScale: 1
+      MinScale: 1
+      SpecializationTimeout: 120
+      TargetCPUPercent: 80
+    StrategyType: execution
+  concurrency: 500
+  environment:
+    name: update-experience-time-env
+    namespace: default
+  functionTimeout: 60
+  idletimeout: 120
+  package:
+    functionName: main.update_experience_time
+    packageref:
+      name: update-experience-time-fn-3dd8ddff-e3d6-4bf0-a9ea-ea8507ca0063
+      namespace: default
+  requestsPerPod: 1
+  resources: {}

@@ -14,10 +14,10 @@ spec:
   ingressconfig:
     annotations: null
     host: '*'
-    path: /update-experience-time
+    path: /onboarding/update_experience_time
     tls: ""
   method: ""
   methods:
   - PUT
   prefix: ""
-  relativeurl: /update-experience-time
+  relativeurl: /onboarding/update_experience_time
