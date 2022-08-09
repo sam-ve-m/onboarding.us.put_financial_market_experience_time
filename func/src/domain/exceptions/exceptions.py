@@ -21,3 +21,7 @@ class UniqueIdWasNotUpdate(Exception):
 
 class TransportOnboardingError(Exception):
     msg = "Jormungandr-Onboarding::ValidateOnboardingSteps::error on fetching data from fission steps"
+
+
+class ErrorLoggingOnIara(Exception):
+    pass
