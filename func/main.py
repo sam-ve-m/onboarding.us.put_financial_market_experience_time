@@ -1,7 +1,7 @@
 # STANDARD IMPORTS
 from http import HTTPStatus
 
-from aioflask import Flask
+from flask import Flask
 from flask import request, Response, Request
 
 # THIRD PART IMPORTS
@@ -22,10 +22,6 @@ from src.domain.exceptions.exceptions import (
 )
 
 
-app = Flask(__name__)
-
-
-@app.route('/put/update_experience_time')
 async def update_experience_time(request_body: Request = request) -> Response:
     thebes_answer = request_body.headers.get("x-thebes-answer")
 
@@ -116,6 +112,3 @@ async def update_experience_time(request_body: Request = request) -> Response:
             message="Unexpected error occurred"
         ).build_http_response(status=HTTPStatus.INTERNAL_SERVER_ERROR)
         return response
-
-if __name__ == "__main__":
-    app.run(debug=True)
