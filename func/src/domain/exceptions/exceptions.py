@@ -7,12 +7,17 @@ class InvalidOnboardingStep(Exception):
     msg = "ValidateOnboardingStepsUS.onboarding_us_step_validator::you're not in this step"
 
 
+class EnumSentIsNotaValidEnum(Exception):
+    msg = "ExperienceTimeEnumService.check_validity_experience_time_enum:: this is not a valid enum"
+
+
 class UserWasNotFound(Exception):
     msg = "Jormungandr-Onboarding::UserRepository::update_user_and_time_experience - user was not found"
 
 
 class NotSentToPersephone(Exception):
-    msg = "UpdateMarketTimeExperience.update_market_time_experience::sent_to_persephone:: the data was not sent to persephone"
+    msg = "UpdateMarketTimeExperience.update_market_time_experience::sent_to_persephone::" \
+          "the data was not sent to persephone"
 
 
 class UniqueIdWasNotUpdate(Exception):
@@ -24,4 +29,8 @@ class TransportOnboardingError(Exception):
 
 
 class ErrorLoggingOnIara(Exception):
+    msg = "Jormungandr-Onboarding::error logging on Iara"
+
+
+class InternalServerError(Exception):
     pass

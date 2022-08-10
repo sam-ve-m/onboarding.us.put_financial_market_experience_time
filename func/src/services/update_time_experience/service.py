@@ -8,8 +8,8 @@ from src.domain.models.time_experience.model import TimeExperienceRequest
 from src.repositories.user.repository import UserRepository
 from src.services.iara.service import SendToIara
 from src.services.persephone.service import SendToPersephone
-from src.transport.onboarding_steps_br import ValidateOnboardingStepsBR
-from src.transport.onboarding_steps_us import ValidateOnboardingStepsUS
+from src.transport.onboarding_steps.onboarding_steps_br import ValidateOnboardingStepsBR
+from src.transport.onboarding_steps.onboarding_steps_us import ValidateOnboardingStepsUS
 
 
 class UpdateMarketTimeExperience:

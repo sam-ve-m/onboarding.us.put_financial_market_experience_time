@@ -11,6 +11,8 @@ class InternalCode(IntEnum):
     UNIQUE_ID_WAS_NOT_UPDATED = 69
     TRANSPORT_ON_BOARDING_ERROR = 88
     USER_WAS_NOT_FOUND = 66
+    NOT_A_VALID_ENUM = 77
+    ERROR_LOGGIN_ON_IARA = 59
 
     def __repr__(self):
         return self.value
