@@ -27,10 +27,8 @@ spec:
               value: "http://fission.dev-lionx.com.br/onboarding/steps_br"
             - name: US_BASE_URL
               value: "http://fission.dev-lionx.com.br/onboarding/steps_us"
-            - name: PERSEPHONE_QUEUE_HOST
-              value: "172.30.19.32"
-            - name: PERSEPHONE_QUEUE_PORT
-              value: "9092"
+            - name: PERSEPHONE_KAFKA_BROKERS
+              value: "cluster-kafka-bootstrap.kafka.svc.cluster.local:9092"
             - name: PERSEPHONE_TOPIC
               value: "thebes.sphinx_persephone.topic"
             - name: PERSEPHONE_TOPIC_USER
@@ -69,4 +67,8 @@ spec:
               value: "users"
             - name: MONGODB_JWT_COLLECTION
               value: "jwts"
+            - name: IARA_KAFKA_TOPIC
+              value: "jormungandr-iara.onboarding.dw-registratio"
+            - name: IARA_KAFKA_BROKERS
+              value: "cluster-kafka-bootstrap.kafka.svc.cluster.local:9092"
   version: 2
