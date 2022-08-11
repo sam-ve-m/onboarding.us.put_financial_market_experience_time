@@ -1,7 +1,6 @@
 # THIRD PARTY IMPORTS
-from decouple import config
 from etria_logger import Gladsheim
-from iara_client import Iara
+from iara_client import Iara, IaraTopics, SchemaTypes
 
 # PROJECT IMPORTS
 from src.domain.models.iara_message.model import IaraMessage
@@ -21,12 +20,11 @@ class SendToIara:
             is_message_sent,
             iara_client_status,
         ) = await Iara.send_to_iara(
-            topic=config("IARA_KAFKA_TOPIC"),
-            partition=0,
+            topic=IaraTopics.DW_REGISTRATION,
             message=IaraMessage.user_time_experience_iara_schema(
                 unique_id=jwt_data.get_unique_id_from_jwt_payload()
             ),
-            schema_name="dw_registration",
+            schema_type=SchemaTypes.DW_REGISTRATION,
         )
 
         if is_message_sent is False:

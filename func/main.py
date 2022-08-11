@@ -1,6 +1,5 @@
 # STANDARD IMPORTS
 from http import HTTPStatus
-from aioflask import Flask
 from flask import request, Response, Request
 
 # THIRD PART IMPORTS

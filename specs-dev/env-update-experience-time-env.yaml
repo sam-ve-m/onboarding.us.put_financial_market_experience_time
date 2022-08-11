@@ -16,7 +16,7 @@ spec:
   poolsize: 3
   resources: {}
   runtime:
-    image: nexus.sigame.com.br/fission-async:0.1.6
+    image: nexus.sigame.com.br/fission-env-cx-async:0.0.1
     podspec:
       containers:
         - name: update-experience-time-env
@@ -61,9 +61,23 @@ spec:
               value: "users"
             - name: MONGODB_JWT_COLLECTION
               value: "jwts"
-            - name: IARA_KAFKA_TOPIC
-              value: "jormungandr-iara.onboarding.dw-registratio"
             - name: IARA_KAFKA_BROKERS
               value: "cluster-kafka-bootstrap.kafka.svc.cluster.local:9092"
+            - name: ORACLE_BASE_DSN
+              value: "172.30.10.227"
+            - name: ORACLE_USER
+              value: "corrwin"
+            - name: ORACLE_PASSWORD
+              value: "5VUn2yD5"
+            - name: ORACLE_SERVICE
+              value: "OPDBDEV.SUBPRIV.VCNDEV.ORACLEVCN.COM"
+            - name: ORACLE_ENCODING
+              value: "UTF-8"
+            - name: ORACLE_PORT
+              value: "1521"
+            - name: LD_LIBRARY_PATH
+              value: "/opt/instantclient"
+            - name: MNEMOSINE_REDIS_HOST
+              value: "redis://bnd:jkl321pqr@172.30.11.235:6379"
 
   version: 2

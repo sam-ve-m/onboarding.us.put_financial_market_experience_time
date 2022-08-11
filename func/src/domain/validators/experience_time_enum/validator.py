@@ -6,7 +6,9 @@ class ValidateEnumFromRequest:
 
     @classmethod
     def check_validity_experience_time_enum(
-            cls, enums_dict: dict, time_experience_model: str
+            cls,
+            enums_dict: dict,
+            time_experience_model: str
     ) -> bool:
 
         enum_is_valid = time_experience_model in enums_dict
@@ -14,4 +16,4 @@ class ValidateEnumFromRequest:
         if not enum_is_valid:
             raise EnumSentIsNotaValidEnum()
 
-        return enum_is_valid
+        return bool(enum_is_valid)

@@ -19,7 +19,7 @@ class UpdateMarketTimeExperience:
             cls,
             jwt_data: Jwt,
             time_experience_request: TimeExperienceRequest
-            ):
+            ) -> bool:
 
         br_step_validator = ValidateOnboardingStepsBR.validate_onboarding_steps_br(jwt_data=jwt_data)
 

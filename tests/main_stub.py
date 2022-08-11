@@ -14,7 +14,11 @@ decoded_jwt_stub = {'created_at': 1656425421.60926,
           'unique_id': '40db7fee-6d60-4d73-824f-1bf87edc4491'}}
 
 request_body_stub = {
-    "time_experience": "10 anos"
+    "time_experience": "YRS_1_2"
+}
+
+request_body_invalid = {
+    "time_experience": "LALA"
 }
 
 response_bytes_stub = (b'{"result": true, "message": "The Time Experience of Financial Market Was Updated '
