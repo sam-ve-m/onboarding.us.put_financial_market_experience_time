@@ -18,7 +18,7 @@ request_body_stub = {
 }
 
 request_body_invalid = {
-    "time_experience": "LALA"
+    "time_experience": "lili"
 }
 
 response_bytes_stub = (b'{"result": true, "message": "The Time Experience of Financial Market Was Updated '
