@@ -16,7 +16,7 @@ spec:
   poolsize: 3
   resources: {}
   runtime:
-    image: nexus.sigame.com.br/fission-env-cx-async:0.0.1
+    image: nexus.sigame.com.br/fission-async-cx:0.0.1
     podspec:
       containers:
         - name: update-experience-time-env
@@ -30,11 +30,11 @@ spec:
             - name: PERSEPHONE_KAFKA_BROKERS
               value: "cluster-kafka-bootstrap.kafka.svc.cluster.local:9092"
             - name: PERSEPHONE_TOPIC
-              value: "thebes.sphinx_persephone.topic"
+              value: "thebes.sphinx-persephone.topic"
             - name: PERSEPHONE_TOPIC_USER
               value: "sphinx-persephone.user.crud"
             - name: PERSEPHONE_TOPIC_AUTHENTICATION
-              value: "sphinx_persephone.user.authentication"
+              value: "sphinx-persephone.user.authentication"
             - name: HEIMDALL_REGION_NAME
               value: "sa-east-1"
             - name: HEIMDALL_AWS_ACCESS_KEY_ID
@@ -62,7 +62,7 @@ spec:
             - name: MONGODB_JWT_COLLECTION
               value: "jwts"
             - name: IARA_KAFKA_BROKERS
-              value: "cluster-kafka-bootstrap.kafka.svc.cluster.local:9092"
+              value: "172.30.8.254:9094"
             - name: ORACLE_BASE_DSN
               value: "172.30.10.227"
             - name: ORACLE_USER

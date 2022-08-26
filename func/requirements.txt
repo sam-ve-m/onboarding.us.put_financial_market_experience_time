@@ -7,5 +7,5 @@ etria_logger==0.1.10
 persephone-client==1.4.2
 etria-logger==0.1.10
 mnemosine==0.1.2
-iara-client==0.3.1
+iara-client==0.3.2
 cx-Oracle==8.3.0
