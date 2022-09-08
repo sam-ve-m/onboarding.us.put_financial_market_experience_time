@@ -50,17 +50,15 @@ async def update_experience_time(request_body: Request = request) -> Response:
     except InvalidOnboardingStep as ex:
         Gladsheim.error(error=ex)
         response = ResponseModel(
-            result=False,
             success=False,
             code=InternalCode.INVALID_ONBOARDING_STEP,
-            message="Invalid Onboarding Step"
+            message="User in invalid onboarding step"
         ).build_http_response(status=HTTPStatus.UNAUTHORIZED)
         return response
 
     except ErrorOnDecodeJwt as ex:
         Gladsheim.error(error=ex)
         response = ResponseModel(
-            result=False,
             success=False,
             code=InternalCode.JWT_INVALID,
             message="Error On Decoding JWT"
@@ -79,7 +77,6 @@ async def update_experience_time(request_body: Request = request) -> Response:
     except NotSentToPersephone as ex:
         Gladsheim.error(error=ex)
         response = ResponseModel(
-            result=False,
             success=False,
             code=InternalCode.NOT_SENT_TO_PERSEPHONE,
             message="Not Sent to Persephone"
@@ -89,7 +86,6 @@ async def update_experience_time(request_body: Request = request) -> Response:
     except UserWasNotFound as ex:
         Gladsheim.error(error=ex)
         response = ResponseModel(
-            result=False,
             success=False,
             code=InternalCode.USER_WAS_NOT_FOUND,
             message="User Not Found"
@@ -99,7 +95,6 @@ async def update_experience_time(request_body: Request = request) -> Response:
     except UniqueIdWasNotUpdate as ex:
         Gladsheim.error(error=ex)
         response = ResponseModel(
-            result=False,
             success=False,
             code=InternalCode.UNIQUE_ID_WAS_NOT_UPDATED,
             message="Unique Id Was Not Updated"
@@ -109,7 +104,6 @@ async def update_experience_time(request_body: Request = request) -> Response:
     except EnumSentIsNotaValidEnum as ex:
         Gladsheim.error(error=ex)
         response = ResponseModel(
-            result=False,
             success=False,
             code=InternalCode.NOT_A_VALID_ENUM,
             message="ValidateEnumFromRequest.check_validity_experience_time_enum::This is not a valid enum"
@@ -119,7 +113,6 @@ async def update_experience_time(request_body: Request = request) -> Response:
     except ErrorLoggingOnIara as ex:
         Gladsheim.error(error=ex)
         response = ResponseModel(
-            result=False,
             success=False,
             code=InternalCode.ERROR_LOGGIN_ON_IARA,
             message="Error Logging On Iara"
@@ -129,7 +122,6 @@ async def update_experience_time(request_body: Request = request) -> Response:
     except Exception as ex:
         Gladsheim.error(error=ex)
         response = ResponseModel(
-            result=False,
             success=False,
             code=InternalCode.INTERNAL_SERVER_ERROR,
             message="Unexpected error occurred"
