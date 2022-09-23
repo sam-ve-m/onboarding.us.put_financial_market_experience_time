@@ -51,5 +51,5 @@ spec:
     packageref:
       name: update-experience-time-fn-b68a8363-e04a-47dd-b000-c1d7005ed771
       namespace: default
-  requestsPerPod: 1
+  requestsPerPod: 10000
   resources: {}
