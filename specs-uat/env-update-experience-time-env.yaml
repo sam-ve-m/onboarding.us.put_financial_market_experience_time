@@ -1,0 +1,83 @@
+apiVersion: fission.io/v1
+kind: Environment
+metadata:
+  creationTimestamp: null
+  name: update-experience-time-env
+  namespace: default
+spec:
+  builder:
+    command: build
+    container:
+      name: ""
+      resources: {}
+    image: nexus.sigame.com.br/fission-builder-3.8:0.0.1
+  imagepullsecret: "nexus-v3"
+  keeparchive: false
+  poolsize: 3
+  resources: {}
+  runtime:
+    image: nexus.sigame.com.br/fission-async-cx:0.0.1
+    podspec:
+      containers:
+        - name: update-experience-time-env
+          env:
+            - name: ASGI_FRAMEWORK
+              value: "HYPERCORN"
+            - name: BR_BASE_URL
+              value: "http://router.fission.svc.cluster.local/onboarding/steps_br"
+            - name: US_BASE_URL
+              value: "http://router.fission.svc.cluster.local/onboarding/steps_us"
+            - name: PERSEPHONE_KAFKA_BROKERS
+              value: "cluster-kafka-bootstrap.kafka.svc.cluster.local:9092"
+            - name: PERSEPHONE_TOPIC
+              value: "thebes.sphinx-persephone.topic"
+            - name: PERSEPHONE_TOPIC_USER
+              value: "sphinx-persephone.user.crud"
+            - name: PERSEPHONE_TOPIC_AUTHENTICATION
+              value: "sphinx-persephone.user.authentication"
+            - name: HEIMDALL_REGION_NAME
+              value: "sa-east-1"
+            - name: HEIMDALL_AWS_ACCESS_KEY_ID
+              value: "AKIATZVFXI25USQWCS5O"
+            - name: HEIMDALL_AWS_SECRET_ACCESS_KEY
+              value: "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"
+            - name: HEIMDALL_BUCKET_NAME_KEY
+              value: "auth-gateway-keys-uat"
+            - name: HEIMDALL_JWT_REQUIRED_FIELDS
+              value: "[]"
+            - name: HEIMDALL_FILE_BUCKET_NAME
+              value: "heimdall_rsa"
+            - name: HEIMDALL_REDIS_URL
+              value: "redis://heimdal:FBJAnjkqw21yjewkDSA@172.30.19.183:6379?db=1"
+            - name: ETRIA_LOG_LEVEL
+              value: "INFO"
+            - name: ROOT_LOG_LEVEL
+              value: "INFO"
+            - name: MONGO_CONNECTION_URL
+              value: "mongodb://jormungandr:LIwn1In32LdowPqma@172.30.10.75:41000/?authSource=admin&replicaSet=rslionx&readPreference=secondary"
+            - name: MONGODB_DATABASE_NAME
+              value: "lionx"
+            - name: MONGODB_USER_COLLECTION
+              value: "users"
+            - name: MONGODB_JWT_COLLECTION
+              value: "jwts"
+            - name: IARA_KAFKA_BROKERS
+              value: "cluster-kafka-bootstrap.kafka.svc.cluster.local:9094"
+            - name: ORACLE_BASE_DSN
+              value: "172.30.18.44"
+            - name: ORACLE_USER
+              value: "ujormdb001"
+            - name: ORACLE_PASSWORD
+              value: "YhrewmJDSA76hba"
+            - name: ORACLE_SERVICE
+              value: "opdbuat.subpriv.vcnuat.oraclevcn.com"
+            - name: ORACLE_ENCODING
+              value: "UTF-8"
+            - name: ORACLE_PORT
+              value: "1521"
+            - name: LD_LIBRARY_PATH
+              value: "/opt/instantclient"
+            - name: MNEMOSINE_REDIS_HOST
+              value: "redis://jormungandr:Mdn45oodsanPOhbrewbDS@172.30.19.183:6379"
+
+  version: 2
