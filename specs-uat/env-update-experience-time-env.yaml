@@ -53,7 +53,7 @@ spec:
             - name: ROOT_LOG_LEVEL
               value: "INFO"
             - name: MONGO_CONNECTION_URL
-              value: "mongodb://jormungandr:LIwn1In32LdowPqma@172.30.10.75:41000/?authSource=admin&replicaSet=rslionx&readPreference=secondary"
+              value: "mongodb://jormungandr:FltuklGHVSDAtldyatuidsafvg532@172.20.28.239:27017,172.20.28.238:27017,172.20.28.76:27017,172.30.18.149:27017/?authSource=admin&replicaSet=rslionx&readPreference=secondary"
             - name: MONGODB_DATABASE_NAME
               value: "lionx"
             - name: MONGODB_USER_COLLECTION
