@@ -38,3 +38,11 @@ class ErrorLoggingOnIara(Exception):
 
 class InternalServerError(Exception):
     pass
+
+
+class DeviceInfoRequestFailed(Exception):
+    msg = "Error trying to get device info"
+
+
+class DeviceInfoNotSupplied(Exception):
+    msg = "Device info not supplied"

@@ -1,17 +1,9 @@
-# STANDARD IMPORTS
 from http import HTTPStatus
+
+from etria_logger import Gladsheim
 from flask import request, Response, Request
 
-# THIRD PART IMPORTS
-from etria_logger import Gladsheim
-
-# PROJECT IMPORTS
 from src.domain.enums.status_code.enum import InternalCode
-from src.domain.models.jwt.models import Jwt
-from src.domain.models.time_experience.model import TimeExperienceRequest
-from src.domain.models.response.model import ResponseModel
-from src.services.enum_experience_time.service import ExperienceTimeEnumService
-from src.services.update_time_experience.service import UpdateMarketTimeExperience
 from src.domain.exceptions.exceptions import (
     ErrorOnDecodeJwt,
     NotSentToPersephone,
@@ -21,25 +13,36 @@ from src.domain.exceptions.exceptions import (
     UserWasNotFound,
     EnumSentIsNotaValidEnum,
     ErrorLoggingOnIara,
+    DeviceInfoRequestFailed,
+    DeviceInfoNotSupplied,
 )
+from src.domain.models.jwt.models import Jwt
+from src.domain.models.response.model import ResponseModel
+from src.domain.models.time_experience.model import TimeExperienceRequest
+from src.services.enum_experience_time.service import ExperienceTimeEnumService
+from src.services.update_time_experience.service import UpdateMarketTimeExperience
+from src.transport.device_info.transport import DeviceSecurity
 
 
-async def update_experience_time(request_body: Request = request) -> Response:
-    thebes_answer = request_body.headers.get("x-thebes-answer")
-
+async def update_experience_time(request: Request = request) -> Response:
     try:
-        jwt_data = Jwt(jwt=thebes_answer)
-        await jwt_data()
+        x_thebes_answer = request.headers.get("x-thebes-answer")
+        x_device_info = request.headers.get("x-device-info")
+        request_body = request.json
 
-        time_experience_request = TimeExperienceRequest(**request_body.json)
+        jwt_data = Jwt(jwt=x_thebes_answer)
+        await jwt_data()
+        device_info = await DeviceSecurity.get_device_info(x_device_info)
+        time_experience_request = TimeExperienceRequest(**request_body)
 
         ExperienceTimeEnumService.experience_time_enum_validation(
             time_experience_model=time_experience_request
         )
-
         service_response = (
             await UpdateMarketTimeExperience.update_market_time_experience(
-                jwt_data=jwt_data, time_experience_request=time_experience_request
+                jwt_data=jwt_data,
+                time_experience_request=time_experience_request,
+                device_info=device_info,
             )
         )
 
@@ -55,7 +58,7 @@ async def update_experience_time(request_body: Request = request) -> Response:
         Gladsheim.error(error=ex)
         response = ResponseModel(
             success=False,
-            code=InternalCode.INVALID_ONBOARDING_STEP,
+            code=InternalCode.INVALID_PARAMS,
             message="User in invalid onboarding step",
         ).build_http_response(status=HTTPStatus.UNAUTHORIZED)
         return response
@@ -121,6 +124,24 @@ async def update_experience_time(request_body: Request = request) -> Response:
             code=InternalCode.ERROR_LOGGIN_ON_IARA,
             message="Error Logging On Iara",
         ).build_http_response(status=HTTPStatus.INTERNAL_SERVER_ERROR)
+        return response
+
+    except DeviceInfoRequestFailed as error:
+        Gladsheim.error(error=error, message=error.msg)
+        response = ResponseModel(
+            success=False,
+            code=InternalCode.INTERNAL_SERVER_ERROR,
+            message="Error trying to get device info",
+        ).build_http_response(status=HTTPStatus.INTERNAL_SERVER_ERROR)
+        return response
+
+    except DeviceInfoNotSupplied as error:
+        Gladsheim.error(error=error, message=error.msg)
+        response = ResponseModel(
+            success=False,
+            code=InternalCode.INVALID_PARAMS,
+            message="Device info not supplied",
+        ).build_http_response(status=HTTPStatus.BAD_REQUEST)
         return response
 
     except Exception as ex:

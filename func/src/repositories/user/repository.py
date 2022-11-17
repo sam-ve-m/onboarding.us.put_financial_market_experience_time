@@ -48,7 +48,7 @@ class UserRepository:
             was_updated = await collection.update_one(user_filter, time_experience)
 
             if not was_updated.matched_count == 1:
-                raise UserWasNotFound
+                raise UserWasNotFound()
             return bool(was_updated)
 
         except Exception as error:

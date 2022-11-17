@@ -1,7 +1,5 @@
-# THIRD PART IMPORTS
 from etria_logger import Gladsheim
 
-# PROJECT IMPORTS
 from src.domain.exceptions.exceptions import EnumSentIsNotaValidEnum
 from src.domain.models.time_experience.model import TimeExperienceRequest
 from src.domain.validators.experience_time_enum.validator import ValidateEnumFromRequest
@@ -24,9 +22,8 @@ class ExperienceTimeEnumService:
                 enums_dict=response,
                 time_experience_model=time_experience_model.time_experience,
             )
-
             if not is_valid:
-                raise EnumSentIsNotaValidEnum
+                raise EnumSentIsNotaValidEnum()
 
             return is_valid
         except Exception as err:
@@ -34,4 +31,4 @@ class ExperienceTimeEnumService:
                 message=f"Error: {err} ::ExperienceTimeEnumService::experience_time_enum_validation::"
                 f"Not a valid Enum"
             )
-            raise EnumSentIsNotaValidEnum
+            raise EnumSentIsNotaValidEnum()
