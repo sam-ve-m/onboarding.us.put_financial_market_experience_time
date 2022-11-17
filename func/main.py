@@ -17,7 +17,10 @@ from src.domain.exceptions.exceptions import (
     NotSentToPersephone,
     UniqueIdWasNotUpdate,
     InvalidOnboardingStep,
-    TransportOnboardingError, UserWasNotFound, EnumSentIsNotaValidEnum, ErrorLoggingOnIara
+    TransportOnboardingError,
+    UserWasNotFound,
+    EnumSentIsNotaValidEnum,
+    ErrorLoggingOnIara,
 )
 
 
@@ -34,16 +37,17 @@ async def update_experience_time(request_body: Request = request) -> Response:
             time_experience_model=time_experience_request
         )
 
-        service_response = await UpdateMarketTimeExperience.update_market_time_experience(
-            jwt_data=jwt_data,
-            time_experience_request=time_experience_request
+        service_response = (
+            await UpdateMarketTimeExperience.update_market_time_experience(
+                jwt_data=jwt_data, time_experience_request=time_experience_request
+            )
         )
 
         response = ResponseModel(
             success=True,
             code=InternalCode.SUCCESS,
             message="The Time Experience of Financial Market Was Updated Successfully",
-            result=service_response
+            result=service_response,
         ).build_http_response(status=HTTPStatus.OK)
         return response
 
@@ -52,7 +56,7 @@ async def update_experience_time(request_body: Request = request) -> Response:
         response = ResponseModel(
             success=False,
             code=InternalCode.INVALID_ONBOARDING_STEP,
-            message="User in invalid onboarding step"
+            message="User in invalid onboarding step",
         ).build_http_response(status=HTTPStatus.UNAUTHORIZED)
         return response
 
@@ -61,7 +65,7 @@ async def update_experience_time(request_body: Request = request) -> Response:
         response = ResponseModel(
             success=False,
             code=InternalCode.JWT_INVALID,
-            message="Error On Decoding JWT"
+            message="Error On Decoding JWT",
         ).build_http_response(status=HTTPStatus.UNAUTHORIZED)
         return response
 
@@ -70,7 +74,7 @@ async def update_experience_time(request_body: Request = request) -> Response:
         response = ResponseModel(
             success=False,
             code=InternalCode.TRANSPORT_ON_BOARDING_ERROR,
-            message="ValidateOnboardingSteps::validate_onboarding_steps::Error trying to verify the onboarding step"
+            message="ValidateOnboardingSteps::validate_onboarding_steps::Error trying to verify the onboarding step",
         ).build_http_response(status=HTTPStatus.INTERNAL_SERVER_ERROR)
         return response
 
@@ -79,7 +83,7 @@ async def update_experience_time(request_body: Request = request) -> Response:
         response = ResponseModel(
             success=False,
             code=InternalCode.NOT_SENT_TO_PERSEPHONE,
-            message="Not Sent to Persephone"
+            message="Not Sent to Persephone",
         ).build_http_response(status=HTTPStatus.UNAUTHORIZED)
         return response
 
@@ -88,7 +92,7 @@ async def update_experience_time(request_body: Request = request) -> Response:
         response = ResponseModel(
             success=False,
             code=InternalCode.USER_WAS_NOT_FOUND,
-            message="User Not Found"
+            message="User Not Found",
         ).build_http_response(status=HTTPStatus.INTERNAL_SERVER_ERROR)
         return response
 
@@ -97,7 +101,7 @@ async def update_experience_time(request_body: Request = request) -> Response:
         response = ResponseModel(
             success=False,
             code=InternalCode.UNIQUE_ID_WAS_NOT_UPDATED,
-            message="Unique Id Was Not Updated"
+            message="Unique Id Was Not Updated",
         ).build_http_response(status=HTTPStatus.UNAUTHORIZED)
         return response
 
@@ -106,7 +110,7 @@ async def update_experience_time(request_body: Request = request) -> Response:
         response = ResponseModel(
             success=False,
             code=InternalCode.NOT_A_VALID_ENUM,
-            message="ValidateEnumFromRequest.check_validity_experience_time_enum::This is not a valid enum"
+            message="ValidateEnumFromRequest.check_validity_experience_time_enum::This is not a valid enum",
         ).build_http_response(status=HTTPStatus.BAD_REQUEST)
         return response
 
@@ -115,7 +119,7 @@ async def update_experience_time(request_body: Request = request) -> Response:
         response = ResponseModel(
             success=False,
             code=InternalCode.ERROR_LOGGIN_ON_IARA,
-            message="Error Logging On Iara"
+            message="Error Logging On Iara",
         ).build_http_response(status=HTTPStatus.INTERNAL_SERVER_ERROR)
         return response
 
@@ -124,6 +128,6 @@ async def update_experience_time(request_body: Request = request) -> Response:
         response = ResponseModel(
             success=False,
             code=InternalCode.INTERNAL_SERVER_ERROR,
-            message="Unexpected error occurred"
+            message="Unexpected error occurred",
         ).build_http_response(status=HTTPStatus.INTERNAL_SERVER_ERROR)
         return response
