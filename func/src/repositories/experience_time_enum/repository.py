@@ -3,7 +3,9 @@ from typing import List, Tuple
 
 # PROJECT IMPORTS
 from src.repositories.base_repository.oracle.base import OracleBaseRepository
-from src.repositories.enum_experience_cache.repository import EnumExperienceTimeCacheRepository
+from src.repositories.enum_experience_cache.repository import (
+    EnumExperienceTimeCacheRepository,
+)
 
 
 class ExperienceTimeEnumRepository:

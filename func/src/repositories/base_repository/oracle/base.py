@@ -25,7 +25,9 @@ class OracleBaseRepository:
         except Exception as e:
             message = f"Exception: {e}. Oracle-Error-Base-Exception Sql: {sql}"
             Gladsheim.error(error=e, message=message)
-            raise InternalServerError("common.process_issue::OracleBaseRepository.query")
+            raise InternalServerError(
+                "common.process_issue::OracleBaseRepository.query"
+            )
 
     @staticmethod
     def _normalize_encode(rows: List[tuple]) -> List[tuple]:
@@ -48,8 +50,12 @@ class OracleBaseRepository:
 
         except InternalServerError as e:
             (error,) = e.args
-            message = f"" \
-                      f"Oracle-Error-Code: {error.code}. Oracle-Error-Message: {error.message} - " \
-                      f"Values: {values} - Oracle-ex: {e}"
+            message = (
+                f""
+                f"Oracle-Error-Code: {error.code}. Oracle-Error-Message: {error.message} - "
+                f"Values: {values} - Oracle-ex: {e}"
+            )
             Gladsheim.error(error=e, message=message)
-            raise InternalServerError("common.process_issue::OracleBaseRepository.execute")
+            raise InternalServerError(
+                "common.process_issue::OracleBaseRepository.execute"
+            )

@@ -1,6 +1,8 @@
 class ErrorOnDecodeJwt(Exception):
-    msg = "Jormungandr-Onboarding::decode_jwt_and_get_unique_id::Fail when trying to get unique_id," \
-          " jwt not decoded successfully"
+    msg = (
+        "Jormungandr-Onboarding::decode_jwt_and_get_unique_id::Fail when trying to get unique_id,"
+        " jwt not decoded successfully"
+    )
 
 
 class InvalidOnboardingStep(Exception):
@@ -16,8 +18,10 @@ class UserWasNotFound(Exception):
 
 
 class NotSentToPersephone(Exception):
-    msg = "UpdateMarketTimeExperience.update_market_time_experience::sent_to_persephone::" \
-          "the data was not sent to persephone"
+    msg = (
+        "UpdateMarketTimeExperience.update_market_time_experience::sent_to_persephone::"
+        "the data was not sent to persephone"
+    )
 
 
 class UniqueIdWasNotUpdate(Exception):
@@ -34,3 +38,11 @@ class ErrorLoggingOnIara(Exception):
 
 class InternalServerError(Exception):
     pass
+
+
+class DeviceInfoRequestFailed(Exception):
+    msg = "Error trying to get device info"
+
+
+class DeviceInfoNotSupplied(Exception):
+    msg = "Device info not supplied"

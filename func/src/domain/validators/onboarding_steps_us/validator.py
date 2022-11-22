@@ -4,7 +4,7 @@ from src.domain.exceptions.exceptions import InvalidOnboardingStep
 
 class OnboardingStepsUsValidator:
 
-    expected_step_us = {'time_experience'}
+    expected_step_us = {"time_experience"}
 
     @classmethod
     async def onboarding_us_step_validator(cls, step_response: dict) -> bool:
@@ -13,6 +13,6 @@ class OnboardingStepsUsValidator:
         step_is_valid = response in cls.expected_step_us
 
         if not step_is_valid:
-            raise InvalidOnboardingStep
+            raise InvalidOnboardingStep()
 
         return step_is_valid

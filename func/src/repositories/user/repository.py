@@ -35,23 +35,20 @@ class UserRepository:
 
     @classmethod
     async def update_user_and_time_experience(
-            cls,
-            unique_id: str,
-            time_experience_request: str
+        cls, unique_id: str, time_experience_request: str
     ):
         user_filter = {"unique_id": unique_id}
         time_experience = {
             "$set": {
-                "external_exchange_requirements.us.time_experience": time_experience_request}
+                "external_exchange_requirements.us.time_experience": time_experience_request
+            }
         }
         try:
             collection = await cls.__get_collection()
-            was_updated = await collection.update_one(
-                user_filter, time_experience
-            )
+            was_updated = await collection.update_one(user_filter, time_experience)
 
             if not was_updated.matched_count == 1:
-                raise UserWasNotFound
+                raise UserWasNotFound()
             return bool(was_updated)
 
         except Exception as error:
