@@ -1,9 +1,9 @@
 from etria_logger import Gladsheim
 from iara_client import Iara, IaraTopics, SchemaTypes
 
-from src.domain.models.iara_message.model import IaraMessage
-from src.domain.models.jwt.models import Jwt
-from src.domain.exceptions.exceptions import ErrorLoggingOnIara
+from func.src.domain.models.iara_message.model import IaraMessage
+from func.src.domain.models.jwt.models import Jwt
+from func.src.domain.exceptions.exceptions import ErrorLoggingOnIara
 
 
 class SendToIara:

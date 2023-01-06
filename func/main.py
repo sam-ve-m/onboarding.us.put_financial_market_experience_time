@@ -3,8 +3,8 @@ from http import HTTPStatus
 from etria_logger import Gladsheim
 from flask import request, Response, Request
 
-from src.domain.enums.status_code.enum import InternalCode
-from src.domain.exceptions.exceptions import (
+from func.src.domain.enums.status_code.enum import InternalCode
+from func.src.domain.exceptions.exceptions import (
     ErrorOnDecodeJwt,
     NotSentToPersephone,
     UniqueIdWasNotUpdate,
@@ -16,12 +16,12 @@ from src.domain.exceptions.exceptions import (
     DeviceInfoRequestFailed,
     DeviceInfoNotSupplied,
 )
-from src.domain.models.jwt.models import Jwt
-from src.domain.models.response.model import ResponseModel
-from src.domain.models.time_experience.model import TimeExperienceRequest
-from src.services.enum_experience_time.service import ExperienceTimeEnumService
-from src.services.update_time_experience.service import UpdateMarketTimeExperience
-from src.transport.device_info.transport import DeviceSecurity
+from func.src.domain.models.jwt.models import Jwt
+from func.src.domain.models.response.model import ResponseModel
+from func.src.domain.models.time_experience.model import TimeExperienceRequest
+from func.src.services.enum_experience_time.service import ExperienceTimeEnumService
+from func.src.services.update_time_experience.service import UpdateMarketTimeExperience
+from func.src.transport.device_info.transport import DeviceSecurity
 
 
 async def update_experience_time(request: Request = request) -> Response:

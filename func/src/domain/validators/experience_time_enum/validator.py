@@ -1,5 +1,5 @@
 # PROJECT IMPORTS
-from src.domain.exceptions.exceptions import EnumSentIsNotaValidEnum
+from func.src.domain.exceptions.exceptions import EnumSentIsNotaValidEnum
 
 
 class ValidateEnumFromRequest:

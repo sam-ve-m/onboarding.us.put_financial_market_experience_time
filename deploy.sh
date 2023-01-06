@@ -1,6 +1,4 @@
-#!/bin/bash
-
 fission spec init
-fission env create --spec --name update-experience-time-env --image nexus.sigame.com.br/fission-async-cx:0.0.1 --builder nexus.sigame.com.br/fission-builder-3.8:0.0.1
-fission fn create --spec --name update-experience-time-fn --env update-experience-time-env --src "./func/*" --entrypoint main.update_experience_time --executortype newdeploy --maxscale 1
-fission route create --spec --name update-experience-time-rt --method PUT --url /update-experience-time --function update-experience-time-fn
+fission env create --spec --name onb-us-mkt-exp-env --image nexus.sigame.com.br/fission-onboarding-us-market-expirience-ben:0.1.0 --poolsize 0 --version 3 --imagepullsecret "nexus-v3" --spec
+fission fn create --spec --name onb-us-mkt-exp-fn --env onb-us-mkt-exp-env --code fission.py --targetcpu 80 --executortype newdeploy --maxscale 3 --requestsperpod 10000 --spec
+fission route create --spec --name onb-us-mkt-exp-rt --method PUT --url /onboarding/update_experience_time --function onb-us-mkt-exp-fn
