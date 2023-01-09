@@ -2,8 +2,8 @@
 from typing import List, Tuple
 
 # PROJECT IMPORTS
-from src.repositories.base_repository.oracle.base import OracleBaseRepository
-from src.repositories.enum_experience_cache.repository import (
+from func.src.repositories.base_repository.oracle.base import OracleBaseRepository
+from func.src.repositories.enum_experience_cache.repository import (
     EnumExperienceTimeCacheRepository,
 )
 

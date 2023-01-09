@@ -6,11 +6,11 @@ from flask import Flask
 from heimdall_client import HeimdallStatusResponses, Heimdall
 from werkzeug.datastructures import Headers
 
-from src.domain.exceptions.exceptions import (
+from func.src.domain.exceptions.exceptions import (
     DeviceInfoRequestFailed,
     DeviceInfoNotSupplied,
 )
-from src.services.enum_experience_time.service import ExperienceTimeEnumService
+from func.src.services.enum_experience_time.service import ExperienceTimeEnumService
 
 with patch.object(Config, "__call__"):
     from func.main import update_experience_time
@@ -18,7 +18,7 @@ with patch.object(Config, "__call__"):
     from func.src.services.update_time_experience.service import (
         UpdateMarketTimeExperience,
     )
-    from src.transport.device_info.transport import DeviceSecurity
+    from func.src.transport.device_info.transport import DeviceSecurity
     from tests.main_stub import request_body_stub, decoded_jwt_stub
 
 jwt_response = "125458.hagfsdsa"
@@ -31,11 +31,11 @@ jwt_response = "125458.hagfsdsa"
     return_value=(decoded_jwt_stub, HeimdallStatusResponses.SUCCESS),
 )
 @patch(
-    "src.services.enum_experience_time.service.ExperienceTimeEnumService.experience_time_enum_validation",
+    "func.src.services.enum_experience_time.service.ExperienceTimeEnumService.experience_time_enum_validation",
     return_value=True,
 )
 @patch(
-    "src.services.update_time_experience.service.UpdateMarketTimeExperience.update_market_time_experience",
+    "func.src.services.update_time_experience.service.UpdateMarketTimeExperience.update_market_time_experience",
     return_value=True,
 )
 @patch.object(DeviceSecurity, "get_device_info")
@@ -67,7 +67,7 @@ enums_data_stub = [("LALA", "lala"), ("LILI", "lili")]
     return_value=(None, HeimdallStatusResponses.INVALID_TOKEN),
 )
 @patch(
-    "src.services.enum_experience_time.service.ExperienceTimeEnumService.experience_time_enum_validation",
+    "func.src.services.enum_experience_time.service.ExperienceTimeEnumService.experience_time_enum_validation",
     return_value=False,
 )
 @patch.object(Jwt, "get_unique_id_from_jwt_payload", return_value=jwt_response)
