@@ -27,6 +27,9 @@ RUN touch /opt/envs/mnemosine.lionx.com.br/.env
 RUN mkdir -p /opt/envs/persephone.client.python.lionx.com.br
 RUN touch /opt/envs/persephone.client.python.lionx.com.br/.env
 
+RUN mkdir -p /opt/envs/iara.client.python.lionx.com.br
+RUN touch /opt/envs/iara.client.python.lionx.com.br/.env
+
 
 COPY ./requirements.txt ./requirements.txt
 RUN pip install -r requirements.txt
